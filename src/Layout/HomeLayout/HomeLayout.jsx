@@ -1,10 +1,12 @@
 import React from 'react';
+import Banner from '../../Pages/Home/Banner/Banner';
 
 
 const HomeLayout = () => {
     return (
-        <div>
-           <h1>this is home layout</h1>
+        <div className='max-w-11/12 mx-auto'>
+           {/* banner */}
+           <Banner></Banner>
             
         </div>
     );
