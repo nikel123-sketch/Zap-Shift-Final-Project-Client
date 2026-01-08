@@ -6,6 +6,7 @@ import Teams from '../../Pages/Home/Teams/Teams';
 import Tracking from '../../Pages/Home/Tracking/Tracking';
 import Merchant from '../../Pages/Home/Merchant/Merchant';
 import CustomerReview from '../../Pages/Home/CustomerReview/CustomerReview';
+import FrequentlyAskedQuestion from '../../Pages/Home/FrequentlyAskedQuestion/FrequentlyAskedQuestion';
 
 const reviewpromise=fetch('/public/reviews.json')
 .then(res=>res.json())
@@ -32,6 +33,9 @@ const HomeLayout = () => {
 
         {/* Merchant */}
         <Merchant></Merchant>
+
+        {/* FrequentlyAskedQuestion */}
+        <FrequentlyAskedQuestion></FrequentlyAskedQuestion>
       </div>
     );
 };
