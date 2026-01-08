@@ -20,8 +20,8 @@ const logos=[logo1,logo2,logo3,logo4,logo5,logo6,logo7]
 
 const Teams = () => {
   return (
-    <div className="mb-3">
-      <h1 className="mt-5 font-bold text-3xl text-center">
+    <div className="mb-3 mt-3">
+      <h1 className="mt-5 mb-3 font-bold text-3xl text-center">
         We've helped thousands of sales teams
       </h1>
 
