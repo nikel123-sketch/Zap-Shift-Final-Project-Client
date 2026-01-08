@@ -2,6 +2,7 @@ import React from 'react';
 import Banner from '../../Pages/Home/Banner/Banner';
 import Works from '../../Pages/Home/Works/Works';
 import OurService from '../../Pages/Home/OurService/OurService';
+import Teams from '../../Pages/Home/Teams/Teams';
 
 
 const HomeLayout = () => {
@@ -15,6 +16,9 @@ const HomeLayout = () => {
 
            {/* our service */}
            <OurService></OurService>
+
+           {/* teams */}
+           <Teams></Teams>
             
         </div>
     );
