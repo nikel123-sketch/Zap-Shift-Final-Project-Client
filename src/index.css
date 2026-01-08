@@ -1,2 +1,5 @@
 /* tailwind */
 @import "tailwindcss";
+
+/* dusy ui */
+@plugin "daisyui";
