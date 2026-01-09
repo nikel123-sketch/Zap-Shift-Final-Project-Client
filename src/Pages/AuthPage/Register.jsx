@@ -1,93 +1,133 @@
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
 
 const Register = () => {
-    // show password---
-    const [showPassword ,setShowPassword]=useState(false)
-    return (
-      <div>
-        {/* register form */}
-        <form >
-          <fieldset className="fieldset">
-            {/* name */}
-            <label className="label">Name</label>
+  // show password---
+  const [showPassword, setShowPassword] = useState(false);
+  // react form hook----\
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // registerformhendle---
+  const registerformhendle=(data)=>{
+    console.log(data)
+  }
+  return (
+    <div>
+      {/* register form */}
+      <form onSubmit={handleSubmit(registerformhendle)}>
+        <fieldset className="fieldset">
+          {/* name */}
+          <label className="label">Name</label>
+          <input
+            type="text"
+            className="input"
+            placeholder="Your Name"
+            {...register("name", { required: true })}
+          />
+
+          {/* name errors */}
+          {errors.name?.type === "required" && (
+            <p className="font-bold text-red-600">Name is required</p>
+          )}
+
+          {/* photo */}
+          <label className="label">Photo</label>
+
+          <input
+            type="file"
+            className="file-input file-input-primary"
+            placeholder="Your photo"
+            {...register("photo", { required: true })}
+          />
+
+          {/* photo errors */}
+          {errors.photo?.type === "required" && (
+            <p className="font-bold text-red-600">Photo is required</p>
+          )}
+
+          {/* Email */}
+          <label className="label">Email</label>
+          <input
+            type="email"
+            className="input "
+            placeholder="Email"
+            {...register("email", { required: true })}
+          />
+
+          {/* email errors */}
+          {errors.email?.type === "required" && (
+            <p className="font-bold text-red-600">Email is required</p>
+          )}
+
+          {/* Password */}
+          <label className="label">Password</label>
+          <div className="relative">
             <input
-              type="text"
+              type={showPassword ? "text" : "password"}
               className="input"
-              placeholder="Your Name"
-              
+              placeholder="Password"
+              {...register("password", {
+                required: true,
+                minLength: 6,
+                pattern:
+                  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+              })}
             />
 
-            
+            {/* passwords errors */}
+            {errors.password?.type === "required" && (
+              <p className="font-bold text-red-600">Password is required</p>
+            )}
 
-            {/* photo */}
-            <label className="label">Photo</label>
+            {/* ---minlength */}
+            {errors.password?.type === "minLength" && (
+              <p className="font-bold text-red-600">
+                Password must be at least 6 characters
+              </p>
+            )}
 
-            <input
-              type="file"
-              className="file-input file-input-primary"
-              placeholder="Your photo"
-              
-            />
+            {/* spacial characters errors */}
+            {errors.password?.type === "pattern" && (
+              <p className="font-bold text-red-600">
+                {" "}
+                password must be uppercase, lowercase, number & special
+                character
+              </p>
+            )}
 
-            
-
-            {/* Email */}
-            <label className="label">Email</label>
-            <input
-              type="email"
-              className="input "
-              placeholder="Email"
-              
-            />
-            
-
-            {/* Password */}
-            <label className="label">Password</label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="input"
-                placeholder="Password"
-               
-              />
-
-              {/* eye btn */}
-              <button
-                type="button"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? (
-                  <EyeOffIcon size={20} />
-                ) : (
-                  <EyeIcon size={20} />
-                )}
-              </button>
-            </div>
-
-            
-            {/* Forgot Password */}
-            <div>
-              <a className="link link-hover">Forgot password?</a>
-            </div>
-
-            {/* register Button */}
-            <button className="btn btn-neutral mt-4">Register</button>
-          </fieldset>
-          <p>
-            All Radey Have an Account{" "}
-            <NavLink
-              to={"/login"}
-              className="font-bold text-green-400 underline"
+            {/* eye btn */}
+            <button
+              type="button"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
             >
-              Login
-            </NavLink>
-          </p>
-        </form>
-      </div>
-    );
+              {showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+            </button>
+          </div>
+
+          {/* Forgot Password */}
+          <div>
+            <a className="link link-hover">Forgot password?</a>
+          </div>
+
+          {/* register Button */}
+          <button className="btn btn-neutral mt-4">Register</button>
+        </fieldset>
+        <p>
+          All Radey Have an Account{" "}
+          <NavLink to={"/login"} className="font-bold text-green-400 underline">
+            Login
+          </NavLink>
+        </p>
+      </form>
+    </div>
+  );
 };
 
 export default Register;
