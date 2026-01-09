@@ -1,21 +1,39 @@
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+
+import useAuth from '../../Hooks/useAuth';
 
 const Register = () => {
+  // firebase----
+  const { createuser,seterror,error } = useAuth();
   // show password---
   const [showPassword, setShowPassword] = useState(false);
   // react form hook----\
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   // registerformhendle---
   const registerformhendle=(data)=>{
     console.log(data)
+    // firebase----
+    createuser(data.email,data.password)
+    .then(res=>{
+      const registerUser=res.user;
+      console.log(registerUser)
+      seterror(null)
+      reset()
+      
+    })
+    .catch(err=>{
+      const error = err.message;
+      seterror(error)
+    })
+
   }
   return (
     <div>
@@ -74,7 +92,7 @@ const Register = () => {
               placeholder="Password"
               {...register("password", {
                 required: true,
-                minLength: 6,
+                minLength: 8,
                 pattern:
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
               })}
@@ -116,12 +134,17 @@ const Register = () => {
             <a className="link link-hover">Forgot password?</a>
           </div>
 
+          {/* error */}
+          {error?<p className='font-bold text-red-600'>{error}</p>:''}
           {/* register Button */}
           <button className="btn btn-neutral mt-4">Register</button>
         </fieldset>
         <p>
           All Radey Have an Account{" "}
-          <NavLink to={"/auth/login"} className="font-bold text-green-400 underline">
+          <NavLink
+            to={"/auth/login"}
+            className="font-bold text-green-400 underline"
+          >
             Login
           </NavLink>
         </p>

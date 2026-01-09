@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router";
 import Logo from "../../Component/Logo";
+import useAuth from "../../Hooks/useAuth";
+
 
 const Navber = () => {
+  const { user, singOutUser } = useAuth();
+  
 
-    // all path----
+  // all path----
   const links = (
     <>
       <li>
@@ -30,6 +34,18 @@ const Navber = () => {
       </li>
     </>
   );
+
+  // logoutbtnhendle--
+  const logoutbtnhendle = () => {
+    singOutUser()
+      .then(() => {
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   return (
     <div>
@@ -60,18 +76,28 @@ const Navber = () => {
               {links}
             </ul>
           </div>
-          <Link  to={'/'}><Logo ></Logo></Link>
+          
+            <Logo></Logo>
+          
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
 
-
         {/* btn */}
+        {/* <div className="navbar-end">
+          {user? }
+        </div> */}
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {user ? (
+            <button onClick={logoutbtnhendle} className="btn btn-error">
+              Logout
+            </button>
+          ) : (
+            <Link to={'/auth/login'} className="btn btn-primary">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

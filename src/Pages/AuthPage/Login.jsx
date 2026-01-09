@@ -1,9 +1,14 @@
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import useAuth from "../../Hooks/useAuth";
+import { NavLink } from "react-router";
 
 const Login = () => {
+  
+  // firebase--
+  const { signinUser ,seterror,error} = useAuth();
   // showPassword--
   const [showPassword, setshowPassword] = useState(false);
 
@@ -11,14 +16,28 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   // loginformhendle----
-  const loginformhendle=(data)=>{
-    console.log(data)
-  }
+  const loginformhendle = (data) => {
+    console.log(data);
+
+    // firebase--
+    signinUser(data.email,data.password)
+    .then(res=>{
+      const loginUser = res.user;
+      console.log(loginUser)
+      reset();
+      
+    })
+    .catch(err=>{
+      const error = err.message;
+      seterror(error);
+      
+    })
+  };
   return (
     <div>
       {/* login form */}
@@ -62,9 +81,9 @@ const Login = () => {
               placeholder="Password"
               {...register("password", {
                 required: true,
-                minLength: 6,
+                minLength: 8,
                 pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
               })}
             />
 
@@ -106,6 +125,8 @@ const Login = () => {
             <a className="link link-hover">Forgot password?</a>
           </div>
 
+          {/* error */}
+          {error ? <p className="font-bold text-red-600">{error}</p> : ""}
           {/* login btn */}
           <button className="btn btn-neutral mt-4">Login</button>
         </fieldset>
