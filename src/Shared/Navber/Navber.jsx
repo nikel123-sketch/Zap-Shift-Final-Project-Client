@@ -7,25 +7,25 @@ const Navber = () => {
   const links = (
     <>
       <li>
-        <NavLink >Home</NavLink>
+        <NavLink to={'/'}>Home</NavLink>
       </li>
       <li>
-        <NavLink >Services</NavLink>
+        <NavLink>Services</NavLink>
       </li>
       <li>
-        <NavLink >Coverage</NavLink>
+        <NavLink>Coverage</NavLink>
       </li>
       <li>
-        <NavLink >About Us</NavLink>
+        <NavLink to={"/aboutus"}>About Us</NavLink>
       </li>
       <li>
-        <NavLink >Pricing</NavLink>
+        <NavLink>Pricing</NavLink>
       </li>
       <li>
-        <NavLink >SandParcel</NavLink>
+        <NavLink>SandParcel</NavLink>
       </li>
       <li>
-        <NavLink >Be a Rider</NavLink>
+        <NavLink>Be a Rider</NavLink>
       </li>
     </>
   );
