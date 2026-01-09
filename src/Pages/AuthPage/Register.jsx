@@ -76,7 +76,7 @@ const Register = () => {
                 required: true,
                 minLength: 6,
                 pattern:
-                  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
               })}
             />
 
@@ -121,7 +121,7 @@ const Register = () => {
         </fieldset>
         <p>
           All Radey Have an Account{" "}
-          <NavLink to={"/login"} className="font-bold text-green-400 underline">
+          <NavLink to={"/auth/login"} className="font-bold text-green-400 underline">
             Login
           </NavLink>
         </p>
