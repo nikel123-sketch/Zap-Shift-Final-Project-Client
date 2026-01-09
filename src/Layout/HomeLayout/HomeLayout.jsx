@@ -8,7 +8,7 @@ import Merchant from '../../Pages/Home/Merchant/Merchant';
 import CustomerReview from '../../Pages/Home/CustomerReview/CustomerReview';
 import FrequentlyAskedQuestion from '../../Pages/Home/FrequentlyAskedQuestion/FrequentlyAskedQuestion';
 
-const reviewpromise=fetch('/public/reviews.json')
+const reviewpromise=fetch('/reviews.json')
 .then(res=>res.json())
 const HomeLayout = () => {
     return (

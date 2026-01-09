@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link } from "react-router";
 
 const Navber = () => {
 
@@ -7,25 +7,25 @@ const Navber = () => {
   const links = (
     <>
       <li>
-        <NavLink to={'/'}>Home</NavLink>
+        <Link to={"/"}>Home</Link>
       </li>
       <li>
-        <NavLink>Services</NavLink>
+        <Link>Services</Link>
       </li>
       <li>
-        <NavLink>Coverage</NavLink>
+        <Link to={"/coverage"}>Coverage</Link>
       </li>
       <li>
-        <NavLink to={"/aboutus"}>About Us</NavLink>
+        <Link to={"/aboutus"}>About Us</Link>
       </li>
       <li>
-        <NavLink>Pricing</NavLink>
+        <Link>Pricing</Link>
       </li>
       <li>
-        <NavLink>SandParcel</NavLink>
+        <Link>SandParcel</Link>
       </li>
       <li>
-        <NavLink>Be a Rider</NavLink>
+        <Link>Be a Rider</Link>
       </li>
     </>
   );
