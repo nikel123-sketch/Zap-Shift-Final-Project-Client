@@ -9,6 +9,8 @@ import Login from "../../Pages/AuthPage/Login";
 import Register from "../../Pages/AuthPage/Register";
 import BaRider from "../../Pages/BaRider/BaRider";
 import PrivateRout from "../PrivateRout/PrivateRout";
+import Pricing from "../../Pages/Pricing/Pricing";
+import SandParcel from "../../Pages/SandParcel/SandParcel";
 
 export const router = createBrowserRouter([
   {
@@ -24,15 +26,26 @@ export const router = createBrowserRouter([
         Component: AboutUs,
       },
       {
+        path: "pricing",
+        Component: Pricing,
+      },
+      {
+        path: "sandparcel",
+        Component:SandParcel
+      },
+      {
         path: "coverage",
         loader: () => fetch("/warehouses.json").then((res) => res.json()),
         Component: Coverage,
-        
       },
       {
         path: "barider",
         // Component: BaRider,
-        element:<PrivateRout><BaRider></BaRider></PrivateRout>
+        element: (
+          <PrivateRout>
+            <BaRider></BaRider>
+          </PrivateRout>
+        ),
       },
     ],
   },

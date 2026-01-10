@@ -24,14 +24,12 @@ const Navber = () => {
         <Link to={"/aboutus"}>About Us</Link>
       </li>
       <li>
-        <Link>Pricing</Link>
+        <Link to={'/pricing'}>Pricing</Link>
       </li>
       <li>
-        <Link>SandParcel</Link>
+        <Link to={'/sandparcel'}>SandParcel</Link>
       </li>
-      <li>
-        <Link>Be a Rider</Link>
-      </li>
+      
     </>
   );
 

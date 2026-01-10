@@ -1,13 +1,17 @@
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router';
 
 const GoogleAuth = () => {
+  const location=useLocation();
+  const navigate=useNavigate()
   const { signinwithgoogle } = useAuth();
   // googlehendle
   const googlehendle=()=>{
     signinwithgoogle()
     .then(res=>{
         console.log(res.user)
+      navigate(location?.state ||'/')
     })
     .catch(err=>{
         console.log(err)

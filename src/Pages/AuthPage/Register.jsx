@@ -4,9 +4,14 @@ import { useForm } from 'react-hook-form';
 
 import useAuth from '../../Hooks/useAuth';
 import GoogleAuth from '../../Component/GoogleAuth/GoogleAuth';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 
 const Register = () => {
+  //  location--
+  const location=useLocation();
+  console.log(location)
+
+  const navigate=useNavigate()
   // firebase----
   const { createuser,seterror,error } = useAuth();
   // show password---
@@ -29,6 +34,7 @@ const Register = () => {
       console.log(registerUser)
       seterror(null)
       reset()
+      navigate(location?.state ||'/')
       
     })
     .catch(err=>{

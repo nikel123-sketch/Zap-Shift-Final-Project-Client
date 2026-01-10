@@ -3,13 +3,18 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import useAuth from "../../Hooks/useAuth";
-import { NavLink } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import GoogleAuth from "../../Component/GoogleAuth/GoogleAuth";
 
 const Login = () => {
-  
+  //  location--
+  const location = useLocation();
+  console.log(location);
+
+  const navigate=useNavigate();
+
   // firebase--
-  const { signinUser ,seterror,error} = useAuth();
+  const { signinUser, seterror, error } = useAuth();
   // showPassword--
   const [showPassword, setshowPassword] = useState(false);
 
@@ -26,18 +31,17 @@ const Login = () => {
     console.log(data);
 
     // firebase--
-    signinUser(data.email,data.password)
-    .then(res=>{
-      const loginUser = res.user;
-      console.log(loginUser)
-      reset();
-      
-    })
-    .catch(err=>{
-      const error = err.message;
-      seterror(error);
-      
-    })
+    signinUser(data.email, data.password)
+      .then((res) => {
+        const loginUser = res.user;
+        console.log(loginUser);
+        reset();
+        navigate(location?.state ||'/')
+      })
+      .catch((err) => {
+        const error = err.message;
+        seterror(error);
+      });
   };
   return (
     <div>
@@ -130,8 +134,6 @@ const Login = () => {
           {error ? <p className="font-bold text-red-600">{error}</p> : ""}
           {/* login btn */}
           <button className="btn btn-neutral mt-4">Login</button>
-
-         
         </fieldset>
 
         <p>
@@ -145,7 +147,9 @@ const Login = () => {
         </p>
       </form>
       {/* google btn */}
-      <div ><GoogleAuth></GoogleAuth></div>
+      <div>
+        <GoogleAuth></GoogleAuth>
+      </div>
     </div>
   );
 };
