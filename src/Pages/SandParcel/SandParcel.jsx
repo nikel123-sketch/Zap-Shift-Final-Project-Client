@@ -37,6 +37,30 @@ const SandParcel = () => {
   //  from hendle--
   const formhendle = (data) => {
     console.log(data);
+
+    const isdocument = data.parcelType === "Document";
+    console.log(isdocument)
+
+    const samedistrict = data.Receiverdistrict === data.Senderdistrict;
+    console.log(samedistrict)
+
+    const parcelweight=parseFloat(data.parcelweight)
+    let cost=0;
+    if(isdocument){
+      cost=samedistrict?60:80
+    }
+    else{
+      if(parcelweight<3){
+        cost=samedistrict?110:150;
+      }
+      else{
+        const extraweight=parcelweight-3;
+        const mincharge=samedistrict?110:150;
+        const extracharge=samedistrict?extraweight*40:extraweight*40+40;
+        cost =mincharge+extracharge;
+      }
+    }
+    console.log(cost)
   };
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-10">
