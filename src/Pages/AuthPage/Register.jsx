@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import useAuth from '../../Hooks/useAuth';
+import GoogleAuth from '../../Component/GoogleAuth/GoogleAuth';
+import { NavLink } from 'react-router';
 
 const Register = () => {
   // firebase----
@@ -149,6 +151,9 @@ const Register = () => {
           </NavLink>
         </p>
       </form>
+
+      {/* google btn */}
+      <div><GoogleAuth></GoogleAuth></div>
     </div>
   );
 };

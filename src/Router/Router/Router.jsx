@@ -7,6 +7,8 @@ import Coverage from "../../Pages/Coverage/Coverage";
 import AuthLayout from "../../Layout/AuthLayout/AuthLayout";
 import Login from "../../Pages/AuthPage/Login";
 import Register from "../../Pages/AuthPage/Register";
+import BaRider from "../../Pages/BaRider/BaRider";
+import PrivateRout from "../PrivateRout/PrivateRout";
 
 export const router = createBrowserRouter([
   {
@@ -23,23 +25,30 @@ export const router = createBrowserRouter([
       },
       {
         path: "coverage",
-        loader:()=>fetch('/warehouses.json').then(res=>res.json()),
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
         Component: Coverage,
+        
+      },
+      {
+        path: "barider",
+        // Component: BaRider,
+        element:<PrivateRout><BaRider></BaRider></PrivateRout>
       },
     ],
   },
+
   {
-    path:'/auth',
-    Component:AuthLayout,
-    children:[
-        {
-            path:'login',
-            Component:Login
-        },
-        {
-            path:'register',
-            Component:Register
-        }
-    ]
-  }
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "login",
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+    ],
+  },
 ]);

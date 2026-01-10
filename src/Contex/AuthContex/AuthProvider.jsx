@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
   //   sign in with google---
   const signinwithgoogle = () => {
     setloading(true);
-    signInWithPopup(auth, provider);
+    return signInWithPopup(auth, provider);
   };
 
   //useeffect auth observer----

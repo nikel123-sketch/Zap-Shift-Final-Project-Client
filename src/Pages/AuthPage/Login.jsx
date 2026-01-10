@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import useAuth from "../../Hooks/useAuth";
 import { NavLink } from "react-router";
+import GoogleAuth from "../../Component/GoogleAuth/GoogleAuth";
 
 const Login = () => {
   
@@ -129,6 +130,8 @@ const Login = () => {
           {error ? <p className="font-bold text-red-600">{error}</p> : ""}
           {/* login btn */}
           <button className="btn btn-neutral mt-4">Login</button>
+
+         
         </fieldset>
 
         <p>
@@ -141,6 +144,8 @@ const Login = () => {
           </NavLink>
         </p>
       </form>
+      {/* google btn */}
+      <div ><GoogleAuth></GoogleAuth></div>
     </div>
   );
 };

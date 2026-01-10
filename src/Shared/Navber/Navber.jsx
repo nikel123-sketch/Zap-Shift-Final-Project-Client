@@ -76,9 +76,8 @@ const Navber = () => {
               {links}
             </ul>
           </div>
-          
-            <Logo></Logo>
-          
+
+          <Logo></Logo>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -94,10 +93,14 @@ const Navber = () => {
               Logout
             </button>
           ) : (
-            <Link to={'/auth/login'} className="btn btn-primary">
+            <Link to={"auth/login"} className="btn btn-primary">
               Login
             </Link>
           )}
+
+          <Link to={"/barider"} className="btn btn-accent ml-4">
+            BaRider
+          </Link>
         </div>
       </div>
     </div>
