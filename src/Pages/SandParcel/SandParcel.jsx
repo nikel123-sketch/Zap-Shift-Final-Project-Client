@@ -1,7 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
 
 const SandParcel = () => {
+    const allCuntry=useLoaderData();
+    console.log(allCuntry)
+
+    const regionDuplicate=allCuntry.map(cuntry=>cuntry.region);
+    // console.log(regionDuplicate);
+    const regions=[...new Set(regionDuplicate)];
+    console.log(regions)
+    
+
+
     // from react hooks--
    const {
        register,
@@ -69,7 +80,10 @@ const SandParcel = () => {
               />
 
               {errors.parcelName?.type === "required" && (
-                <p className="font-bold text-red-600"> parcel name must be required</p>
+                <p className="font-bold text-red-600">
+                  {" "}
+                  parcel name must be required
+                </p>
               )}
             </div>
 
@@ -81,8 +95,11 @@ const SandParcel = () => {
                 className="input input-bordered w-full mt-1"
                 {...register("parcelweight", { required: true })}
               />
-                {errors.parcelweight?.type === "required" && (
-                <p className="font-bold text-red-600"> parcel weight must be required</p>
+              {errors.parcelweight?.type === "required" && (
+                <p className="font-bold text-red-600">
+                  {" "}
+                  parcel weight must be required
+                </p>
               )}
             </div>
           </div>
@@ -153,9 +170,10 @@ const SandParcel = () => {
                   <option value="" disabled>
                     Select your District
                   </option>
-                  <option value="Dhaka">Dhaka</option>
-                  <option value="Gazipur">Gazipur</option>
-                  <option value="Narayanganj">Narayanganj</option>
+
+                  {regions.map((region) => (
+                    <option>{region}</option>
+                  ))}
                 </select>
 
                 {errors.SenderDistrict && (
@@ -245,9 +263,10 @@ const SandParcel = () => {
                   <option value="" disabled>
                     Select your District
                   </option>
-                  <option value="Dhaka">Dhaka</option>
-                  <option value="Gazipur">Gazipur</option>
-                  <option value="Narayanganj">Narayanganj</option>
+                  {regions.map((region) => (
+                    <option>{region}</option>
+                  ))}
+                  
                 </select>
 
                 {errors.ReceiverDistrict && (
