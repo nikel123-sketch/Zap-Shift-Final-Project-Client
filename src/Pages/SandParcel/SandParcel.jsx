@@ -3,29 +3,40 @@ import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
 
 const SandParcel = () => {
-    const allCuntry=useLoaderData();
-    console.log(allCuntry)
+  // from react hooks--
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-    const regionDuplicate=allCuntry.map(cuntry=>cuntry.region);
-    // console.log(regionDuplicate);
-    const regions=[...new Set(regionDuplicate)];
-    console.log(regions)
-    
+  const allCuntry = useLoaderData();
+  console.log(allCuntry);
 
+  // district
+  const regionDuplicate = allCuntry.map((cuntry) => cuntry.region);
+  // console.log(regionDuplicate);
+  const regions = [...new Set(regionDuplicate)];
+  console.log(regions);
 
-    // from react hooks--
-   const {
-       register,
-       handleSubmit,
-       reset,
-       formState: { errors },
-     } = useForm();
+  // sender region--
+  const senderregion = watch('SenderRegion');
+  const receiverdistrict = watch("ReceiverRegion");
 
+  // region district--
+  const districtbyregion = (region) => {
+    const regiondistrict = allCuntry.filter((c) => c.region === region);
+    // console.log(regiondistrict)
+    const districts = regiondistrict.map((d) => d.district);
+    return districts;
+  };
 
-    //  from hendle--
-    const formhendle=(data)=>{
-        console.log(data)
-    }
+  //  from hendle--
+  const formhendle = (data) => {
+    console.log(data);
+  };
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-10">
       <div className="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow">
@@ -158,25 +169,57 @@ const SandParcel = () => {
                   </p>
                 )}
               </div>
-
-              {/* Your District */}
+              {/* ******************region******************************* */}
+              {/* Your Region */}
               <div>
-                <label className="text-sm font-medium">Your District</label>
+                <label className="text-sm font-medium">Your Region</label>
                 <select
                   className="select select-bordered w-full mt-1"
-                  {...register("SenderDistrict", { required: true })}
+                  {...register("SenderRegion", { required: true })}
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    Select your District
+                    Select your Region
                   </option>
 
-                  {regions.map((region) => (
-                    <option>{region}</option>
+                  {/* map region */}
+                  {regions.map((region, index) => (
+                    <option value={region} key={index}>
+                      {region}
+                    </option>
                   ))}
                 </select>
 
-                {errors.SenderDistrict && (
+                {errors.SenderRegion?.type === "required" && (
+                  <p className="text-red-600 font-bold">
+                    Region must be required
+                  </p>
+                )}
+              </div>
+              {/* ********************************************************* */}
+
+              {/* ******************district**************************** */}
+              {/* Your district */}
+              <div>
+                <label className="text-sm font-medium">Your district</label>
+                <select
+                  className="select select-bordered w-full mt-1"
+                  {...register("Senderdistrict", { required: true })}
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select your district
+                  </option>
+
+                  {/* map district */}
+                  {districtbyregion(senderregion).map((region, index) => (
+                    <option value={region} key={index}>
+                      {region}
+                    </option>
+                  ))}
+                </select>
+
+                {errors.Senderdistrict?.type === "required" && (
                   <p className="text-red-600 font-bold">
                     District must be required
                   </p>
@@ -251,27 +294,57 @@ const SandParcel = () => {
                   </p>
                 )}
               </div>
-
-              {/* Receiver District */}
+              {/* *********region*************** */}
+              {/* Receiver region */}
               <div>
-                <label className="text-sm font-medium">Receiver District</label>
+                <label className="text-sm font-medium">Receiver Region</label>
                 <select
                   className="select select-bordered w-full mt-1"
-                  {...register("ReceiverDistrict", { required: true })}
+                  {...register("ReceiverRegion", { required: true })}
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    Select your District
+                    Select your region
                   </option>
-                  {regions.map((region) => (
-                    <option>{region}</option>
+
+                  {/* map district */}
+                  {regions.map((region, index) => (
+                    <option value={region} key={index}>
+                      {region}
+                    </option>
                   ))}
-                  
                 </select>
 
-                {errors.ReceiverDistrict && (
+                {errors.ReceiverRegion && (
                   <p className="text-red-600 font-bold">
-                    Receiver District must be required
+                    Receiver region must be required
+                  </p>
+                )}
+              </div>
+              {/* ******************************************* */}
+              {/* Your district */}
+              <div>
+                <label className="text-sm font-medium">Receiver district</label>
+                <select
+                  className="select select-bordered w-full mt-1"
+                  {...register("Receiverdistrict", { required: true })}
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select Receiver district
+                  </option>
+
+                  {/* map district */}
+                  {districtbyregion(receiverdistrict).map((d, index) => (
+                    <option value={d} key={index}>
+                      {d}
+                    </option>
+                  ))}
+                </select>
+
+                {errors.Receiverdistrict?.type === "required" && (
+                  <p className="text-red-600 font-bold">
+                    District must be required
                   </p>
                 )}
               </div>
