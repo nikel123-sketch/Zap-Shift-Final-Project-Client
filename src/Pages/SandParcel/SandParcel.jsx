@@ -21,8 +21,9 @@ const SandParcel = () => {
   const regions = [...new Set(regionDuplicate)];
   console.log(regions);
 
-  // sender region--
+  // sender region --
   const senderregion = watch('SenderRegion');
+  // reciver district---
   const receiverdistrict = watch("ReceiverRegion");
 
   // region district--
