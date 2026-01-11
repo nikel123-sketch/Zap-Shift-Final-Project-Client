@@ -1,8 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/AxiosHooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
+
+
 
 const SandParcel = () => {
+  const {user}=useAuth();
+  console.log(user)
+  // axios --
+  const axiosSecure=useAxiosSecure();
   // from react hooks--
   const {
     register,
@@ -45,7 +54,9 @@ const SandParcel = () => {
     console.log(samedistrict)
 
     const parcelweight=parseFloat(data.parcelweight)
+    
     let cost=0;
+   
     if(isdocument){
       cost=samedistrict?60:80
     }
@@ -61,6 +72,34 @@ const SandParcel = () => {
       }
     }
     console.log(cost)
+     data.cost = cost;
+
+    Swal.fire({
+      title: "Agree with the cost ?",
+      text: `You will be charged ${cost} taka !`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "I Agree!",
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post('/parcels',data)
+        .then(res=>{
+          if(res.data.insertedId){
+            Swal.fire({
+              title: "Success!",
+              text: "Your parcel has been submitted successfully.",
+              icon: "success",
+            });
+
+          }
+        })
+        .catch(err=>console.log(err))
+        
+      }
+    });
   };
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-10">
@@ -152,6 +191,8 @@ const SandParcel = () => {
               <div>
                 <label className="text-sm font-medium">Sender Name</label>
                 <input
+                  defaultValue={user?.displayName}
+                  
                   className="input input-bordered w-full mt-1"
                   placeholder="Sender Name"
                   {...register("sanderName", { required: true })}
@@ -160,6 +201,25 @@ const SandParcel = () => {
                 {errors.sanderName?.type === "required" && (
                   <p className="font-bold text-red-600">
                     SenderName must be required
+                  </p>
+                )}
+              </div>
+
+              {/* sander email */}
+              <div>
+                <label className="text-sm font-medium">Sander Email</label>
+                <input
+                  defaultValue={user?.email}
+                  readOnly
+                  type="email"
+                  className="input input-bordered w-full mt-1"
+                  placeholder="Sander email"
+                  {...register("SanderEmail", { required: true })}
+                />
+
+                {errors.SanderEmail?.type === "required" && (
+                  <p className="font-bold text-red-600">
+                    SanderEmail must be required
                   </p>
                 )}
               </div>
@@ -285,6 +345,23 @@ const SandParcel = () => {
                 {errors.ReceiverName?.type === "required" && (
                   <p className="font-bold text-red-600">
                     ReceiverName must be required
+                  </p>
+                )}
+              </div>
+
+              {/* Receiver email */}
+              <div>
+                <label className="text-sm font-medium">Receiver Email</label>
+                <input
+                  type="email"
+                  className="input input-bordered w-full mt-1"
+                  placeholder="Receiver email"
+                  {...register("ReceiverEmail", { required: true })}
+                />
+
+                {errors.ReceiverEmail?.type === "required" && (
+                  <p className="font-bold text-red-600">
+                    ReceiverEmail must be required
                   </p>
                 )}
               </div>

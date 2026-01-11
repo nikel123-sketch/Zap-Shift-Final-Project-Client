@@ -11,6 +11,8 @@ import BaRider from "../../Pages/BaRider/BaRider";
 import PrivateRout from "../PrivateRout/PrivateRout";
 import Pricing from "../../Pages/Pricing/Pricing";
 import SandParcel from "../../Pages/SandParcel/SandParcel";
+import DasbordLayout from "../../Layout/DasbordLayout/DasbordLayout";
+import MyParcel from "../../Pages/Dasbord/MyParcel/MyParcel";
 
 export const router = createBrowserRouter([
   {
@@ -65,4 +67,16 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  {
+    path:'/dasbord',
+    element:<PrivateRout><DasbordLayout></DasbordLayout></PrivateRout>,
+    children:[
+      {
+        path:'myparcel',
+        Component:MyParcel
+      }
+    ]
+
+  }
 ]);
