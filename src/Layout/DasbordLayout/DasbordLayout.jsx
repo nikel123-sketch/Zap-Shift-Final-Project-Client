@@ -1,4 +1,5 @@
 import React from "react";
+import { CiDeliveryTruck } from "react-icons/ci";
 import { Link, NavLink, Outlet } from "react-router";
 
 const DasbordLayout = () => {
@@ -73,14 +74,18 @@ const DasbordLayout = () => {
                 </Link>
               </li>
 
-              
-
               {/* our dasbord items links */}
+
               <li>
-                <NavLink to={"/dasbord/myparcel"}>myparcel</NavLink>
+                <NavLink
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="My-Parcels"
+                  to={"/dasbord/myparcel"}
+                >
+                  <CiDeliveryTruck />
+                  <span className="is-drawer-close:hidden">myparcel</span>
+                </NavLink>
               </li>
-
-
 
               {/* setting */}
 
@@ -108,8 +113,6 @@ const DasbordLayout = () => {
                   <span className="is-drawer-close:hidden">Settings</span>
                 </button>
               </li>
-
-
             </ul>
           </div>
         </div>
