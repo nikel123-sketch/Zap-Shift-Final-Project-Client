@@ -29,6 +29,9 @@ const Navber = () => {
       <li>
         <Link to={'/sandparcel'}>SandParcel</Link>
       </li>
+      <li>
+        <Link to={'dasbord/myparcel'}>MyParcel</Link>
+      </li>
       
     </>
   );

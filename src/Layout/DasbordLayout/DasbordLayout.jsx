@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 
 const DasbordLayout = () => {
   return (
@@ -33,9 +33,8 @@ const DasbordLayout = () => {
             <div className="px-4">Navbar Title</div>
           </nav>
 
-        {/* Page content here */}
+          {/* Page content here */}
           <Outlet></Outlet>
-          
         </div>
 
         <div className="drawer-side is-drawer-close:overflow-visible">
@@ -48,8 +47,11 @@ const DasbordLayout = () => {
             {/* Sidebar content here */}
             <ul className="menu w-full grow">
               {/* List item */}
+
+              {/* home */}
               <li>
-                <button
+                <Link
+                  to={"/"}
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Homepage"
                 >
@@ -68,10 +70,19 @@ const DasbordLayout = () => {
                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   </svg>
                   <span className="is-drawer-close:hidden">Homepage</span>
-                </button>
+                </Link>
               </li>
 
-              {/* List item */}
+              
+
+              {/* our dasbord items links */}
+              <li>
+                <NavLink to={"/dasbord/myparcel"}>myparcel</NavLink>
+              </li>
+
+
+
+              {/* setting */}
 
               <li>
                 <button
@@ -97,6 +108,7 @@ const DasbordLayout = () => {
                   <span className="is-drawer-close:hidden">Settings</span>
                 </button>
               </li>
+
 
             </ul>
           </div>
