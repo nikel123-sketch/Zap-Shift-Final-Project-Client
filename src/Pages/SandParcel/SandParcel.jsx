@@ -93,6 +93,7 @@ const SandParcel = () => {
               text: "Your parcel has been submitted successfully.",
               icon: "success",
             });
+            
 
           }
         })
