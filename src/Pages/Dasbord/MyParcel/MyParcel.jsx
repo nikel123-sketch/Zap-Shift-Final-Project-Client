@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/AxiosHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Component/Loading/Loading";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcel = () => {
   const { user } = useAuth();
@@ -75,6 +76,7 @@ const MyParcel = () => {
                 <th>ParcelType</th>
                 <th>Cost</th>
                 <th>CreatedAt</th>
+                <th>Payment</th>
                 <th>Acction</th>
               </tr>
             </thead>
@@ -87,6 +89,15 @@ const MyParcel = () => {
                   <td>{parcel.parcelType}</td>
                   <td>{parcel.cost} taka</td>
                   <td>{parcel.createdAt} </td>
+                  <td>
+                  {
+                    parcel.paymentStatus==='paid'?
+                    <span className="text-green-400 btn btn-accent btn-sm ">paid</span>:
+                    <Link to={`/dasbord/pay/${parcel._id}`}>
+                    <button className="btn btn-primary btn-sm">pay</button>
+                    </Link>
+                  }  
+                   </td>
                   <td className="flex gap-3">
                     <button className="btn btn btn-square btn-sm hover:bg-amber-200">
                       Edit

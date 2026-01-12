@@ -13,6 +13,7 @@ import Pricing from "../../Pages/Pricing/Pricing";
 import SandParcel from "../../Pages/SandParcel/SandParcel";
 import DasbordLayout from "../../Layout/DasbordLayout/DasbordLayout";
 import MyParcel from "../../Pages/Dasbord/MyParcel/MyParcel";
+import Pay from "../../Pages/Dasbord/Pay/Pay";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path:'myparcel',
         Component:MyParcel
+      },
+      {
+        path:'pay/:parcelId',
+        Component:Pay
       }
     ]
 
