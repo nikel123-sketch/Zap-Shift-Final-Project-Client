@@ -14,6 +14,8 @@ import SandParcel from "../../Pages/SandParcel/SandParcel";
 import DasbordLayout from "../../Layout/DasbordLayout/DasbordLayout";
 import MyParcel from "../../Pages/Dasbord/MyParcel/MyParcel";
 import Pay from "../../Pages/Dasbord/Pay/Pay";
+import PaySuccess from "../../Pages/Dasbord/Pay/PaySuccess";
+import PayCancel from "../../Pages/Dasbord/Pay/PayCancel";
 
 export const router = createBrowserRouter([
   {
@@ -34,8 +36,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "sandparcel",
-        loader:()=>fetch('/warehouses.json').then(res=>res.json()),
-        Component:SandParcel
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
+        Component: SandParcel,
       },
       {
         path: "coverage",
@@ -70,18 +72,29 @@ export const router = createBrowserRouter([
   },
 
   {
-    path:'/dasbord',
-    element:<PrivateRout><DasbordLayout></DasbordLayout></PrivateRout>,
-    children:[
+    path: "/dasbord",
+    element: (
+      <PrivateRout>
+        <DasbordLayout></DasbordLayout>
+      </PrivateRout>
+    ),
+    children: [
       {
-        path:'myparcel',
-        Component:MyParcel
+        path: "myparcel",
+        Component: MyParcel,
       },
       {
-        path:'pay/:parcelId',
-        Component:Pay
-      }
-    ]
-
-  }
+        path: "pay/:parcelId",
+        Component: Pay,
+      },
+      {
+        path: "PaySuccess",
+        Component: PaySuccess,
+      },
+      {
+        path: "PayCancel",
+        Component: PayCancel
+      },
+    ],
+  },
 ]);

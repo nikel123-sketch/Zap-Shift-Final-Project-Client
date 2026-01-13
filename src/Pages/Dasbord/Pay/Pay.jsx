@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import useAxiosSecure from '../../../Hooks/AxiosHooks/useAxiosSecure';
 import Loading from '../../../Component/Loading/Loading';
 
+
 const Pay = () => {
   const { parcelId } = useParams();
   const axiosSecure = useAxiosSecure();
@@ -20,11 +21,23 @@ const Pay = () => {
   console.log(parcel);
 
   // paybtnhendle---
-  const paybtnhendle=()=>{
+  const paybtnhendle= async()=>{
     console.log('ok')
+    const parcelinfo = {
+      cost: parcel.cost,
+      parcelId: parcel._id,
+      SanderEmail: parcel.SanderEmail,
+      parcelName: parcel.parcelName,
+    };
+    const result = await axiosSecure.post("/create-checkout-session",parcelinfo)
+    window.location.href=result.data.url;
+    console.log(result.data);
   }
+  
   return (
     <div className="flex justify-center items-center min-h-[80vh] bg-gradient-to-br from-indigo-50 to-purple-50">
+
+
       <div className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
         {/* top gradient bar */}
         <div className="h-24 bg-gradient-to-r from-indigo-500 to-purple-600" />
