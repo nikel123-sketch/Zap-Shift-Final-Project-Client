@@ -60,63 +60,100 @@ const MyParcel = () => {
     });    
   }
   return (
-    <div>
-      <h1 className="font-bold text-3xl text-center underline">
+    <div className="p-4">
+
+      {/* titale */}
+      <h1
+        className="font-bold text-3xl text-center underline 
+               text-transparent bg-clip-text 
+               bg-gradient-to-r from-indigo-500 to-purple-600 mb-6"
+      >
         My Totall Parcels {parcels.length}
       </h1>
 
-      <div>
-        <div className="overflow-x-auto">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>number</th>
-                <th>ParcelName</th>
-                <th>ParcelType</th>
-                <th>Cost</th>
-                <th>CreatedAt</th>
-                <th>Payment</th>
-                <th>Acction</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              {parcels.map((parcel, index) => (
-                <tr key={index}>
-                  <th>{index + 1}</th>
-                  <td>{parcel.parcelName}</td>
-                  <td>{parcel.parcelType}</td>
-                  <td>{parcel.cost} taka</td>
-                  <td>{parcel.createdAt} </td>
-                  <td>
-                  {
-                    parcel.paymentStatus==='paid'?
-                    <span className="text-green-400 btn btn-accent btn-sm ">paid</span>:
-                    <Link to={`/dasbord/pay/${parcel._id}`}>
-                    <button className="btn btn-primary btn-sm">pay</button>
-                    </Link>
-                  }  
-                   </td>
-                  <td className="flex gap-3">
-                    <button className="btn btn btn-square btn-sm hover:bg-amber-200">
-                      Edit
-                    </button>
-                    <button className="btn btn btn-square btn-sm hover:bg-amber-200">
-                      Pay
-                    </button>
-                    <button
-                      onClick={()=>deletehendlebtn(parcel._id)}
-                      className="btn btn btn-square btn-sm hover:bg-amber-200"
+      <div className="overflow-x-auto rounded-2xl shadow-xl bg-base-100">
+        <table className="table table-zebra w-full">
+
+          {/* head */}
+          <thead className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+            <tr>
+              <th>Number</th>
+              <th>Parcel Name</th>
+              <th>Parcel Type</th>
+              <th>Cost</th>
+              <th>Created At</th>
+              <th>Payment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+
+          {/* tbody */}
+          <tbody>
+            {parcels.map((parcel, index) => (
+              <tr
+                key={index}
+                className="hover:bg-indigo-50 transition-all duration-200"
+              >
+                <th>{index + 1}</th>
+
+                <td className="font-medium">{parcel.parcelName}</td>
+
+                <td>{parcel.parcelType}</td>
+
+                <td className="font-semibold text-indigo-600">
+                  {parcel.cost} taka
+                </td>
+
+                <td className="text-sm text-gray-500">{parcel.createdAt}</td>
+
+
+              {/* paid and pay btn */}
+                <td>
+                  {parcel.paymentStatus === "paid" ? (
+                    <span
+                      className="text-green-600 bg-green-100 
+                             px-3 py-1 rounded-full 
+                             text-xs font-semibold shadow-sm"
                     >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                      Paid
+                    </span>
+                  ) : (
+                    <Link to={`/dasbord/pay/${parcel._id}`}>
+                      <button
+                        className="btn btn-sm text-white 
+                               bg-gradient-to-r from-indigo-500 to-purple-600 
+                               hover:scale-105 transition-transform"
+                      >
+                        Pay
+                      </button>
+                    </Link>
+                  )}
+                </td>
+
+                  {/* edit and delete btn */}
+                <td className="flex gap-3">
+                  <button
+                    className="btn btn-square btn-sm 
+                           hover:bg-indigo-100 
+                           transition-colors duration-200"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={() => deletehendlebtn(parcel._id)}
+                    className="btn btn-square btn-sm 
+                           hover:bg-red-100 
+                           transition-colors duration-200"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
