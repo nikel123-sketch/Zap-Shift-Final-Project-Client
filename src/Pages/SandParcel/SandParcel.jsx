@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/AxiosHooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
@@ -8,6 +8,7 @@ import useAuth from "../../Hooks/useAuth";
 
 
 const SandParcel = () => {
+  const navigate=useNavigate();
   const {user}=useAuth();
   console.log(user)
   // axios --
@@ -81,18 +82,21 @@ const SandParcel = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "I Agree!",
+      confirmButtonText: "contuneu to the pay!",
     })
     .then((result) => {
       if (result.isConfirmed) {
         axiosSecure.post('/parcels',data)
         .then(res=>{
           if(res.data.insertedId){
-            Swal.fire({
-              title: "Success!",
-              text: "Your parcel has been submitted successfully.",
-              icon: "success",
-            });
+            navigate('/dasbord/myparcel')
+           Swal.fire({
+             position: "top-end",
+             icon: "success",
+             title: "your parcel has been sucessful",
+             showConfirmButton: false,
+             timer: 2500,
+           });
             
 
           }

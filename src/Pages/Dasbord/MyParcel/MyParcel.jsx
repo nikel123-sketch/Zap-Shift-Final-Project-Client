@@ -9,7 +9,11 @@ import { Link } from "react-router";
 const MyParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: parcels = [], isLoading,refetch } = useQuery({
+  const {
+    data: parcels = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["myparcel", user?.email],
     queryFn: async () => {
       const result = await axiosSecure.get(`/parcels?email=${user?.email}`);
@@ -23,8 +27,8 @@ const MyParcel = () => {
   console.log(parcels);
 
   // deletehendlebtn--
-  const deletehendlebtn=(id)=>{
-    console.log(id)
+  const deletehendlebtn = (id) => {
+    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -39,7 +43,7 @@ const MyParcel = () => {
           .delete(`/parcels/${id}`)
           .then((res) => {
             if (res.data.deletedCount) {
-              refetch()
+              refetch();
               Swal.fire({
                 title: "Deleted!",
                 text: "Your parcel has been deleted successfully.",
@@ -55,13 +59,26 @@ const MyParcel = () => {
               icon: "error",
             });
           });
-        
       }
-    });    
+    });
+  };
+
+  // paybtnhendle--
+  const paybtnhendle= async(parcel)=>{
+    console.log('ok',parcel)
+     const parcelinfo = {
+       cost: parcel.cost,
+       parcelId: parcel._id,
+       SanderEmail: parcel.SanderEmail,
+       parcelName: parcel.parcelName,
+     };
+
+     const result=await axiosSecure.post('/create-checkout-session',parcelinfo)
+     console.log(result.data)
+    window.location.assign( result.data.url);
   }
   return (
     <div className="p-4">
-
       {/* titale */}
       <h1
         className="font-bold text-3xl text-center underline 
@@ -73,7 +90,6 @@ const MyParcel = () => {
 
       <div className="overflow-x-auto rounded-2xl shadow-xl bg-base-100">
         <table className="table table-zebra w-full">
-
           {/* head */}
           <thead className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
             <tr>
@@ -86,7 +102,6 @@ const MyParcel = () => {
               <th>Action</th>
             </tr>
           </thead>
-
 
           {/* tbody */}
           <tbody>
@@ -107,8 +122,7 @@ const MyParcel = () => {
 
                 <td className="text-sm text-gray-500">{parcel.createdAt}</td>
 
-
-              {/* paid and pay btn */}
+                {/* paid and pay btn */}
                 <td>
                   {parcel.paymentStatus === "paid" ? (
                     <span
@@ -119,19 +133,18 @@ const MyParcel = () => {
                       Paid
                     </span>
                   ) : (
-                    <Link to={`/dasbord/pay/${parcel._id}`}>
-                      <button
-                        className="btn btn-sm text-white 
+                    <button
+                      onClick={()=>paybtnhendle(parcel)}
+                      className="btn btn-sm text-white 
                                bg-gradient-to-r from-indigo-500 to-purple-600 
                                hover:scale-105 transition-transform"
-                      >
-                        Pay
-                      </button>
-                    </Link>
+                    >
+                      Pay
+                    </button>
                   )}
                 </td>
 
-                  {/* edit and delete btn */}
+                {/* edit and delete btn */}
                 <td className="flex gap-3">
                   <button
                     className="btn btn-square btn-sm 
