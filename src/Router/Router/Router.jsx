@@ -16,6 +16,7 @@ import MyParcel from "../../Pages/Dasbord/MyParcel/MyParcel";
 import Pay from "../../Pages/Dasbord/Pay/Pay";
 import PaySuccess from "../../Pages/Dasbord/Pay/PaySuccess";
 import PayCancel from "../../Pages/Dasbord/Pay/PayCancel";
+import PaymentHistory from "../../Pages/Dasbord/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ export const router = createBrowserRouter([
         path: "PayCancel",
         Component: PayCancel
       },
+      {
+        path:'paymenthistory',
+        Component:PaymentHistory
+      }
     ],
   },
 ]);
