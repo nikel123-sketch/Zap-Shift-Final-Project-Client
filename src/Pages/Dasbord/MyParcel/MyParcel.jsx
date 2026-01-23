@@ -24,7 +24,7 @@ const MyParcel = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
-  console.log(parcels);
+  // console.log(parcels);
 
   // deletehendlebtn--
   const deletehendlebtn = (id) => {
