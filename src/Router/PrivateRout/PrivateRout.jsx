@@ -6,7 +6,7 @@ const PrivateRout = ({children}) => {
   const { user, loading } = useAuth();
   // location--
   const location = useLocation();
-    console.log(location);
+    // console.log(location);
 
     // loading check------
   if (loading) {
