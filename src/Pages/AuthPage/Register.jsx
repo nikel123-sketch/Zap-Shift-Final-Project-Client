@@ -5,8 +5,10 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../Hooks/useAuth';
 import GoogleAuth from '../../Component/GoogleAuth/GoogleAuth';
 import { NavLink, useLocation, useNavigate } from 'react-router';
+import useAxiosSecure from '../../Hooks/AxiosHooks/useAxiosSecure';
 
 const Register = () => {
+  const axiosSecure=useAxiosSecure()
   //  location--
   const location=useLocation();
   console.log(location)
@@ -25,24 +27,38 @@ const Register = () => {
   } = useForm();
 
   // registerformhendle---
-  const registerformhendle=(data)=>{
-    console.log(data)
-    // firebase----
-    createuser(data.email,data.password)
-    .then(res=>{
-      const registerUser=res.user;
-      console.log(registerUser)
-      seterror(null)
-      reset()
-      navigate(location?.state ||'/')
-      
-    })
-    .catch(err=>{
-      const error = err.message;
-      seterror(error)
-    })
+  const registerformhendle = async (data) => {
+    try {
+      seterror(null);
+      console.log(data);
 
-  }
+      // 1️⃣ Firebase user create
+      const res = await createuser(data.email, data.password);
+      const registerUser = res.user;
+      console.log("Firebase User:", registerUser);
+
+      // 2️⃣ User object
+      const user = {
+        name: data.name,
+        email: data.email,
+        
+      };
+
+      // 3️⃣ Save user to database
+      const result = await axiosSecure.post("/users", user);
+      console.log("DB Result:", result.data);
+
+      // 4️⃣ Reset & redirect
+      reset();
+      navigate(location?.state || "/");
+    }
+    
+    catch (err) {
+      console.error(err);
+      seterror(err.message);
+    }
+  };
+
   return (
     <div>
       {/* register form */}

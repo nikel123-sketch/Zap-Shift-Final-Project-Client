@@ -77,6 +77,7 @@ const MyParcel = () => {
      console.log(result.data)
     window.location.assign( result.data.url);
   }
+  
   return (
     <div className="p-4">
       {/* titale */}
