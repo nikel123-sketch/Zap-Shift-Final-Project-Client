@@ -45,8 +45,13 @@ const Register = () => {
       };
 
       // 3️⃣ Save user to database
-      const result = await axiosSecure.post("/users", user);
-      console.log("DB Result:", result.data);
+      axiosSecure.post("/users", user)
+      .then(res=>{
+        if(res.data.insertedId){
+          console.log('user save the data base')
+        }
+      })
+      
 
       // 4️⃣ Reset & redirect
       reset();

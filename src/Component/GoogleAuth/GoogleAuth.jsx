@@ -1,17 +1,35 @@
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
+import useAxiosSecure from '../../Hooks/AxiosHooks/useAxiosSecure';
 
 const GoogleAuth = () => {
+  const axiosSecure=useAxiosSecure()
   const location=useLocation();
   const navigate=useNavigate()
   const { signinwithgoogle } = useAuth();
   // googlehendle
   const googlehendle=()=>{
     signinwithgoogle()
-    .then(res=>{
-        console.log(res.user)
-      navigate(location?.state ||'/')
+    .then((res) => {
+      console.log(res.user);
+
+     
+
+      // 2️⃣ User object
+      const user = {
+        name: res.user.displayName,
+        email: res.user.email,
+      };
+      axiosSecure.post('/user',user)
+      .then(res=>{
+        console.log(res.data)
+      })
+
+
+
+       navigate(location?.state || "/");
+
     })
     .catch(err=>{
         console.log(err)

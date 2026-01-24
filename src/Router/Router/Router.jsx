@@ -38,7 +38,8 @@ export const router = createBrowserRouter([
       {
         path: "sandparcel",
         loader: () => fetch("/warehouses.json").then((res) => res.json()),
-        Component: SandParcel,
+        // Component: SandParcel,
+        element:<PrivateRout><SandParcel></SandParcel></PrivateRout>
       },
       {
         path: "coverage",

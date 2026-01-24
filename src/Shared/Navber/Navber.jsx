@@ -90,9 +90,11 @@ const Navber = () => {
         </div> */}
         <div className="navbar-end">
           {user ? (
-            <button onClick={logoutbtnhendle} className="btn btn-error">
-              Logout
-            </button>
+            <Link to={'/auth/login'}>
+              <button onClick={logoutbtnhendle} className="btn btn-error">
+                Logout
+              </button>
+            </Link>
           ) : (
             <Link to={"auth/login"} className="btn btn-primary">
               Login
