@@ -21,14 +21,11 @@ const GoogleAuth = () => {
         name: res.user.displayName,
         email: res.user.email,
       };
-      axiosSecure.post('/user',user)
+      axiosSecure.post('/users',user)
       .then(res=>{
         console.log(res.data)
+        navigate(location?.state || "/");
       })
-
-
-
-       navigate(location?.state || "/");
 
     })
     .catch(err=>{
