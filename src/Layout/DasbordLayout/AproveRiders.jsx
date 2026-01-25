@@ -5,6 +5,8 @@ import { FaUserCheck } from "react-icons/fa";
 import { IoPersonRemove } from "react-icons/io5";
 import { AiFillDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
+import { FaUsersViewfinder } from "react-icons/fa6";
+import { MdOutlinePreview } from "react-icons/md";
 
 
 
@@ -174,6 +176,15 @@ const rejecthendle=(rider)=>{
                 </td>
 
                 <td className="flex gap-2 px-2 py-1 justify-center">
+                  
+                  {/* Rider view*/}
+                  <button
+                    className="flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full shadow hover:bg-green-200 hover:scale-105 transition-all duration-200"
+                    title="Rider View"
+                  >
+                    <MdOutlinePreview/>
+                  </button>
+
                   {/* Approve */}
                   <button
                     onClick={() => hendleAproval(rider)}
@@ -200,8 +211,6 @@ const rejecthendle=(rider)=>{
                   >
                     <AiFillDelete />
                   </button>
-
-
                 </td>
               </tr>
             ))}
