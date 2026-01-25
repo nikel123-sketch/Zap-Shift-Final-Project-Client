@@ -27,6 +27,8 @@ const AproveRiders = () => {
 
   if (isLoading) return <p>Loading...</p>;
 
+
+
   //   hendleAproval---
   const hendleAproval = (id) => {
     console.log(id);
@@ -65,6 +67,25 @@ const AproveRiders = () => {
     });
   };
 
+//   rejecthendle-----
+const rejecthendle=(id)=>{
+    console.log(id)
+     const updateinfo = { status: "Rejected" };
+     axiosSecure.patch(`/riders/${id}`, updateinfo).then((result) => {
+       if (result.data.modifiedCount) {
+         Swal.fire({
+           position: "top-end",
+           icon: "success",
+           title: "Riders has been Rejected",
+           showConfirmButton: false,
+           timer: 2500,
+         });
+         // ✅ REFRESH TABLE properly
+         queryClient.invalidateQueries(["riders"]);
+       }
+     });
+}
+
   return (
     <div className="p-4">
       <h1 className="text-2xl text-center font-bold mb-4">
@@ -73,8 +94,7 @@ const AproveRiders = () => {
 
       <div className="overflow-x-auto">
         <table className="table-auto border-collapse border border-gray-300 w-full text-sm">
-
-            {/* table head */}
+          {/* table head */}
           <thead className="bg-gray-100">
             <tr>
               <th className="border border-gray-300 px-2 py-1">Number</th>
@@ -133,40 +153,53 @@ const AproveRiders = () => {
                 <td className="border border-gray-300 px-2 py-1">
                   {rider.phoneNumber}
                 </td>
-                <td className="border border-gray-300 px-2 py-1">
-                  {rider.status}
+
+                {/* _____approved and rejected pending_________ */}
+                <td className="border border-gray-300 px-2 py-1 text-center">
+                  {rider.status === "Approved" ? (
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full shadow-sm">
+                      Approved
+                    </span>
+                  ) : rider.status === "Rejected" ? (
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full shadow-sm">
+                      Rejected
+                    </span>
+                  ) : (
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-yellow-700 bg-yellow-100 rounded-full shadow-sm animate-pulse">
+                      Pending
+                    </span>
+                  )}
                 </td>
 
-                {/* Acction Buttons */}
-                <td className="flex gap-2 px-2 py-1">
+                <td className="flex gap-2 px-2 py-1 justify-center">
                   {/* Approve */}
                   <button
                     onClick={() => hendleAproval(rider._id)}
-                    className="flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full hover:bg-green-200 transition"
+                    className="flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full shadow hover:bg-green-200 hover:scale-105 transition-all duration-200"
                     title="Approve Rider"
                   >
                     <FaUserCheck />
-                    {rider.status === "approved" ? "Approved" : "Approve"}
                   </button>
 
                   {/* Reject */}
                   <button
-                    className="flex items-center gap-1 px-3 py-1 bg-red-100 text-red-800 text-sm font-semibold rounded-full hover:bg-red-200 transition"
+                    onClick={() => rejecthendle(rider._id)}
+                    className="flex items-center gap-1 px-3 py-1 bg-red-100 text-red-800 text-sm font-semibold rounded-full shadow hover:bg-red-200 hover:scale-105 transition-all duration-200"
                     title="Reject Rider"
                   >
                     <IoPersonRemove />
-                    {rider.status === "rejected" ? "Rejected" : "Reject"}
                   </button>
 
                   {/* Delete */}
                   <button
                     onClick={() => hendleDelete(rider._id)}
-                    className="flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-800 text-sm font-semibold rounded-full hover:bg-gray-200 transition"
+                    className="flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-800 text-sm font-semibold rounded-full shadow hover:bg-gray-200 hover:scale-105 transition-all duration-200"
                     title="Delete Rider"
                   >
                     <AiFillDelete />
-                    Delete
                   </button>
+
+                  
                 </td>
               </tr>
             ))}
