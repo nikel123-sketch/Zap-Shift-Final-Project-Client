@@ -15,7 +15,7 @@ const UserManagement = () => {
         }
         
     })
-    console.log(users)
+    // console.log(users)
 
     if(isLoading){
         return <p>loding...</p>
@@ -42,8 +42,8 @@ const UserManagement = () => {
               refetch();
             }
           })
-          .catch((err) => {
-            console.error(err);
+          .catch(() => {
+            // console.error(err);
             Swal.fire({
               icon: "error",
               title: "Error",
@@ -51,6 +51,37 @@ const UserManagement = () => {
             });
           });
     };
+
+    // userAdminRemovehendle--
+    const userAdminRemovehendle=(user)=>{
+        // console.log(user)
+        const roleInfo = { role: "user" };
+
+        axiosSecure
+          .patch(`/users/${user._id}`, roleInfo)
+          .then((result) => {
+            if (result.data.modifiedCount) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${user.name} is no longer an Admin`,
+                showConfirmButton: false,
+                timer: 2000,
+              });
+
+              // Refetch users table if needed
+              refetch();
+            }
+          })
+          .catch(() => {
+            // console.error(err);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Failed to update user role!",
+            });
+          });
+    }
 
     
     return (
@@ -111,11 +142,12 @@ const UserManagement = () => {
                       {user.role}
                     </span>
                   </td>
-                  
+
                   {/* actions  */}
                   <td className="px-4 py-2 text-center">
                     {user.role === "admin" ? (
                       <button
+                        onClick={() => userAdminRemovehendle(user)}
                         className="flex items-center justify-center w-10 h-10 bg-red-100 text-red-700 rounded-full shadow-md hover:bg-red-200 transition-all duration-200"
                         title="Admin Role - Cannot change"
                       >
