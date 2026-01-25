@@ -39,7 +39,11 @@ export const router = createBrowserRouter([
         path: "sandparcel",
         loader: () => fetch("/warehouses.json").then((res) => res.json()),
         // Component: SandParcel,
-        element:<PrivateRout><SandParcel></SandParcel></PrivateRout>
+        element: (
+          <PrivateRout>
+            <SandParcel></SandParcel>
+          </PrivateRout>
+        ),
       },
       {
         path: "coverage",
@@ -49,6 +53,7 @@ export const router = createBrowserRouter([
       {
         path: "barider",
         // Component: BaRider,
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
         element: (
           <PrivateRout>
             <BaRider></BaRider>
@@ -95,12 +100,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "PayCancel",
-        Component: PayCancel
+        Component: PayCancel,
       },
       {
-        path:'paymenthistory',
-        Component:PaymentHistory
-      }
+        path: "paymenthistory",
+        Component: PaymentHistory,
+      },
     ],
   },
 ]);

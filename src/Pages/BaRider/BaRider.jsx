@@ -1,6 +1,39 @@
 import React from "react";
 import img from '../../assets/banner/agent-pending.png'
+import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
 const BaRider = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const allCuntry = useLoaderData();
+  // console.log(allCuntry);
+
+  // sender region --
+  const riderRegion = watch("RiderRegion");
+  console.log(riderRegion);
+
+  const regionDuplicate = allCuntry.map((cuntry) => cuntry.region);
+
+  const regions = [...new Set(regionDuplicate)];
+
+  // region district--
+  const districtbyregion = (region) => {
+    const regiondistrict = allCuntry.filter((c) => c.region === region);
+    // console.log(regiondistrict)
+    const districts = regiondistrict.map((d) => d.district);
+    return districts;
+  };
+
+  // form hendle--
+  const formHendle = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className=" flex justify-between justify-center items-start bg-gray-50 py-10">
       <div className="w-full max-w-md bg-white p-6 rounded-md shadow">
@@ -18,71 +51,177 @@ const BaRider = () => {
         </h2>
 
         {/* Form */}
-        <form className="space-y-3">
+        <form onSubmit={handleSubmit(formHendle)} className="space-y-3">
+          {/* name */}
+          {/* _____________________ */}
+          <label className="block">Your Name</label>
           <input
             type="text"
             placeholder="Your Name"
             className="input input-bordered w-full"
+            {...register("name", { required: true })}
           />
 
+          {errors.name?.type === "required" && (
+            <p className="font-bold text-red-600">Name must be required</p>
+          )}
+          {/* _________________________________________ */}
+
+          {/* ___________Driving License Number___________ */}
+          <label className="block">Driving License Number</label>
           <input
-            type="text"
+            type="number"
             placeholder="Driving License Number"
             className="input input-bordered w-full"
+            {...register("DrivingLicenseNumber", { required: true })}
           />
+          {errors.DrivingLicenseNumber?.type === "required" && (
+            <p className="font-bold text-red-600">
+              Driving License Number must be required
+            </p>
+          )}
 
+          {/* _________email_________________________ */}
+          <label className="block">Your Email</label>
           <input
             type="email"
             placeholder="Your Email"
             className="input input-bordered w-full"
+            {...register("email", { required: true })}
           />
 
-          <select className="select select-bordered w-full">
-            <option disabled selected>
-              Select your Region
-            </option>
-            <option>Dhaka</option>
-            <option>Chattogram</option>
-            <option>Rajshahi</option>
-          </select>
+          {errors.email?.type === "required" && (
+            <p className="font-bold text-red-600">email must be required</p>
+          )}
 
-          <select className="select select-bordered w-full">
-            <option disabled selected>
-              Select your District
-            </option>
-            <option>Dhaka</option>
-            <option>Gazipur</option>
-            <option>Narayanganj</option>
-          </select>
+          {/* _______________________________________________ */}
 
+          {/* ____________________Nid Number___________ */}
+          <label className="block">NID No</label>
           <input
-            type="text"
+            type="number"
             placeholder="NID No"
             className="input input-bordered w-full"
+            {...register("nidNumber", { required: true })}
           />
 
+          {errors.nidNumber?.type === "required" && (
+            <p className="font-bold text-red-600">
+              Nid Number must be required
+            </p>
+          )}
+
+          {/* _________phone number_________ */}
+          <label className="block">Phone Number</label>
           <input
-            type="text"
+            type="number"
             placeholder="Phone Number"
             className="input input-bordered w-full"
+            {...register("phoneNumber", { required: true })}
           />
+          {errors.phoneNumber?.type === "required" && (
+            <p className="font-bold text-red-600">
+              Phone Number must be required
+            </p>
+          )}
 
+          {/* ________________________________ */}
+
+          {/* __________bike model and year__________ */}
+          <label className="block">Bike Brand Model and Year</label>
           <input
             type="text"
             placeholder="Bike Brand Model and Year"
             className="input input-bordered w-full"
+            {...register("BikeModelAndYear", { required: true })}
           />
+          {errors.BikeModelAndYear?.type === "required" && (
+            <p className="font-bold text-red-600">
+              Bike Model And Year must be required
+            </p>
+          )}
 
+          {/* ____________________________ */}
+
+          {/* ________bike registration number________ */}
+          <label className="block">Bike Registration Number</label>
           <input
             type="text"
             placeholder="Bike Registration Number"
             className="input input-bordered w-full"
+            {...register("BikeRegistrationNumber", { required: true })}
           />
+          {errors.BikeRegistrationNumber?.type === "required" && (
+            <p className="font-bold text-red-600">
+              Bike Registration Number must be required
+            </p>
+          )}
+          {/* __________________________ */}
 
+          {/* ****************************** */}
+          {/* Your Region */}
+          <div>
+            <label className="text-sm font-medium">Your Region</label>
+            <select
+              className="select select-bordered w-full mt-1"
+              {...register("RiderRegion", { required: true })}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select your Region
+              </option>
+
+              {/* map region */}
+              {regions.map((region, index) => (
+                <option value={region} key={index}>
+                  {region}
+                </option>
+              ))}
+            </select>
+
+            {errors.RiderRegion?.type === "required" && (
+              <p className="text-red-600 font-bold">
+                Rider Region must be required
+              </p>
+            )}
+          </div>
+
+          {/* Your district */}
+          <div>
+            <label className="text-sm font-medium">Your district</label>
+            <select
+              className="select select-bordered w-full mt-1"
+              {...register("Riderdistrict", { required: true })}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select your district
+              </option>
+
+              {/* map district */}
+              {districtbyregion(riderRegion).map((region, index) => (
+                <option value={region} key={index}>
+                  {region}
+                </option>
+              ))}
+            </select>
+
+            {errors.Riderdistrict?.type === "required" && (
+              <p className="text-red-600 font-bold">
+                District must be required
+              </p>
+            )}
+          </div>
+          {/* yourself */}
+          <label className="block">Tell Us About Yourself</label>
           <textarea
             placeholder="Tell Us About Yourself"
             className="textarea textarea-bordered w-full"
+            {...register("yourself", { required: true })}
           ></textarea>
+          {errors.yourself?.type === "required" && (
+            <p className="font-bold text-red-600">yourself must be required</p>
+          )}
 
           <button className="btn w-full bg-lime-400 hover:bg-lime-500 text-black font-semibold">
             Submit
@@ -95,6 +234,6 @@ const BaRider = () => {
       </div>
     </div>
   );
-};
+};;;
 
 export default BaRider;
