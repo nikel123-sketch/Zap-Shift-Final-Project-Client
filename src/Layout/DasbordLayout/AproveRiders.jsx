@@ -29,10 +29,11 @@ const AproveRiders = () => {
 
 
   //   hendleAproval---
-  const hendleAproval = (id) => {
-    console.log(id);
-    const updateinfo = { status: "Approved" };
-    axiosSecure.patch(`/riders/${id}`, updateinfo).then((result) => {
+  const hendleAproval = (rider) => {
+    console.log(rider);
+    const updateinfo = { status: "Approved",email:rider.email };
+    axiosSecure.patch(`/riders/${rider._id}`, updateinfo)
+    .then((result) => {
       if (result.data.modifiedCount) {
         Swal.fire({
           position: "top-end",
@@ -48,9 +49,10 @@ const AproveRiders = () => {
   };
 
   // hendleDelete--
-  const hendleDelete = (id) => {
-    console.log(id);
-    axiosSecure.delete(`/riders/${id}`).then((res) => {
+  const hendleDelete = (rider) => {
+    console.log(rider);
+    axiosSecure.delete(`/riders/${rider._id}`)
+    .then((res) => {
       if (res.data.deletedCount) {
         Swal.fire({
           position: "top-end",
@@ -67,10 +69,11 @@ const AproveRiders = () => {
   };
 
 //   rejecthendle-----
-const rejecthendle=(id)=>{
-    console.log(id)
-     const updateinfo = { status: "Rejected" };
-     axiosSecure.patch(`/riders/${id}`, updateinfo).then((result) => {
+const rejecthendle=(rider)=>{
+    console.log(rider)
+     const updateinfo = { status: "Rejected",email:rider.email };
+     axiosSecure.patch(`/riders/${rider._id}`, updateinfo)
+     .then((result) => {
        if (result.data.modifiedCount) {
          Swal.fire({
            position: "top-end",
@@ -173,7 +176,7 @@ const rejecthendle=(id)=>{
                 <td className="flex gap-2 px-2 py-1 justify-center">
                   {/* Approve */}
                   <button
-                    onClick={() => hendleAproval(rider._id)}
+                    onClick={() => hendleAproval(rider)}
                     className="flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full shadow hover:bg-green-200 hover:scale-105 transition-all duration-200"
                     title="Approve Rider"
                   >
@@ -182,7 +185,7 @@ const rejecthendle=(id)=>{
 
                   {/* Reject */}
                   <button
-                    onClick={() => rejecthendle(rider._id)}
+                    onClick={() => rejecthendle(rider)}
                     className="flex items-center gap-1 px-3 py-1 bg-red-100 text-red-800 text-sm font-semibold rounded-full shadow hover:bg-red-200 hover:scale-105 transition-all duration-200"
                     title="Reject Rider"
                   >
@@ -191,7 +194,7 @@ const rejecthendle=(id)=>{
 
                   {/* Delete */}
                   <button
-                    onClick={() => hendleDelete(rider._id)}
+                    onClick={() => hendleDelete(rider)}
                     className="flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-800 text-sm font-semibold rounded-full shadow hover:bg-gray-200 hover:scale-105 transition-all duration-200"
                     title="Delete Rider"
                   >
