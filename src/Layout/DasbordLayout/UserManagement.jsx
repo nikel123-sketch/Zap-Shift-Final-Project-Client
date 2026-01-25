@@ -89,13 +89,13 @@ const UserManagement = () => {
   // };
 
   // userMakehendle--
-  const userMakehendle = (user) => {
+  const userMakeAdminhendle = (user) => {
     console.log(user);
     const roleInfo = { role: "admin" };
 
     
     axiosSecure
-      .patch(`/users/${user._id}`, roleInfo)
+      .patch(`/users/${user._id}/role`, roleInfo)
       .then((result) => {
         if (result.data.modifiedCount) {
           Swal.fire({
@@ -126,7 +126,7 @@ const UserManagement = () => {
     const roleInfo = { role: "user" };
 
     axiosSecure
-      .patch(`/users/${user._id}`, roleInfo)
+      .patch(`/users/${user._id}/role`, roleInfo)
       .then((result) => {
         if (result.data.modifiedCount) {
           Swal.fire({
@@ -222,7 +222,7 @@ const UserManagement = () => {
                     </button>
                   ) : (
                     <button
-                      onClick={() => userMakehendle(user)}
+                      onClick={() => userMakeAdminhendle(user)}
                       className="flex items-center justify-center w-10 h-10 bg-green-100 text-green-700 rounded-full shadow-md hover:bg-green-200 hover:scale-110 transition-all duration-200"
                       title="Make Admin"
                     >
