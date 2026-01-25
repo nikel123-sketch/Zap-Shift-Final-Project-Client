@@ -5,19 +5,18 @@ import { FaUserCheck } from "react-icons/fa";
 import { IoPersonRemove } from "react-icons/io5";
 import { AiFillDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
-import { useQueryClient } from "@tanstack/react-query";
+
 
 
 
 
 const AproveRiders = () => {
-    // refese ---
-  const queryClient = useQueryClient();
+   
 
   const axiosSecure = useAxiosSecure();
 
   // fetch riders
-  const { data: riders = [], isLoading } = useQuery({
+  const {refetch, data: riders = [], isLoading } = useQuery({
     queryKey: ["riders"],
     queryFn: async () => {
       const result = await axiosSecure.get("/riders");
@@ -43,7 +42,7 @@ const AproveRiders = () => {
           timer: 2500,
         });
         // ✅ REFRESH TABLE properly
-        queryClient.invalidateQueries(["riders"]);
+        refetch()
       }
     });
   };
@@ -62,7 +61,7 @@ const AproveRiders = () => {
         });
 
         // ✅ REFRESH TABLE properly
-        queryClient.invalidateQueries(["riders"]);
+        refetch()
       }
     });
   };
@@ -81,7 +80,7 @@ const rejecthendle=(id)=>{
            timer: 2500,
          });
          // ✅ REFRESH TABLE properly
-         queryClient.invalidateQueries(["riders"]);
+         refetch()
        }
      });
 }
@@ -199,7 +198,7 @@ const rejecthendle=(id)=>{
                     <AiFillDelete />
                   </button>
 
-                  
+
                 </td>
               </tr>
             ))}
