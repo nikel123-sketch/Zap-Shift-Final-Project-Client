@@ -13,12 +13,14 @@ import { MdOutlinePreview } from "react-icons/md";
 
 
 const AproveRiders = () => {
-   
-
   const axiosSecure = useAxiosSecure();
 
   // fetch riders
-  const {refetch, data: riders = [], isLoading } = useQuery({
+  const {
+    refetch,
+    data: riders = [],
+    isLoading,
+  } = useQuery({
     queryKey: ["riders"],
     queryFn: async () => {
       const result = await axiosSecure.get("/riders");
@@ -28,14 +30,11 @@ const AproveRiders = () => {
 
   if (isLoading) return <p>Loading...</p>;
 
-
-
   //   hendleAproval---
   const hendleAproval = (rider) => {
     console.log(rider);
-    const updateinfo = { status: "Approved",email:rider.email };
-    axiosSecure.patch(`/riders/${rider._id}`, updateinfo)
-    .then((result) => {
+    const updateinfo = { status: "Approved", email: rider.email };
+    axiosSecure.patch(`/riders/${rider._id}`, updateinfo).then((result) => {
       if (result.data.modifiedCount) {
         Swal.fire({
           position: "top-end",
@@ -45,7 +44,7 @@ const AproveRiders = () => {
           timer: 2500,
         });
         // ✅ REFRESH TABLE properly
-        refetch()
+        refetch();
       }
     });
   };
@@ -53,8 +52,7 @@ const AproveRiders = () => {
   // hendleDelete--
   const hendleDelete = (rider) => {
     console.log(rider);
-    axiosSecure.delete(`/riders/${rider._id}`)
-    .then((res) => {
+    axiosSecure.delete(`/riders/${rider._id}`).then((res) => {
       if (res.data.deletedCount) {
         Swal.fire({
           position: "top-end",
@@ -65,30 +63,31 @@ const AproveRiders = () => {
         });
 
         // ✅ REFRESH TABLE properly
-        refetch()
+        refetch();
       }
     });
   };
 
-//   rejecthendle-----
-const rejecthendle=(rider)=>{
-    console.log(rider)
-     const updateinfo = { status: "Rejected",email:rider.email };
-     axiosSecure.patch(`/riders/${rider._id}`, updateinfo)
-     .then((result) => {
-       if (result.data.modifiedCount) {
-         Swal.fire({
-           position: "top-end",
-           icon: "success",
-           title: "Riders has been Rejected",
-           showConfirmButton: false,
-           timer: 2500,
-         });
-         // ✅ REFRESH TABLE properly
-         refetch()
-       }
-     });
-}
+  //   rejecthendle-----
+  const rejecthendle = (rider) => {
+    console.log(rider);
+    const updateinfo = { status: "Rejected", email: rider.email };
+    axiosSecure.patch(`/riders/${rider._id}`, updateinfo).then((result) => {
+      if (result.data.modifiedCount) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Riders has been Rejected",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        // ✅ REFRESH TABLE properly
+        refetch();
+      }
+    });
+  };
+
+  
 
   return (
     <div className="p-4">
@@ -176,13 +175,13 @@ const rejecthendle=(rider)=>{
                 </td>
 
                 <td className="flex gap-2 px-2 py-1 justify-center">
-                  
                   {/* Rider view*/}
                   <button
+                    
                     className="flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full shadow hover:bg-green-200 hover:scale-105 transition-all duration-200"
                     title="Rider View"
                   >
-                    <MdOutlinePreview/>
+                    <MdOutlinePreview />
                   </button>
 
                   {/* Approve */}

@@ -4,8 +4,10 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { FaMotorcycle } from "react-icons/fa";
 import { MdManageAccounts, MdOutlinePayments } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../../Hooks/Role/useRole";
 
 const DasbordLayout = () => {
+  const {role}=useRole()
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -103,31 +105,37 @@ const DasbordLayout = () => {
                 </NavLink>
               </li>
 
-              {/* Aprove Riders */}
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Aprove Riders"
-                  to={"/dasbord/aproveRiders"}
-                >
-                  <FaMotorcycle />
-                  <span className="is-drawer-close:hidden">Aprove Riders</span>
-                </NavLink>
-              </li>
+              {role === "admin" && (
+                <>
+                  {/* Aprove Riders */}
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Aprove Riders"
+                      to={"/dasbord/aproveRiders"}
+                    >
+                      <FaMotorcycle />
+                      <span className="is-drawer-close:hidden">
+                        Aprove Riders
+                      </span>
+                    </NavLink>
+                  </li>
 
-              {/* User Management */}
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="User Management"
-                  to={"/dasbord/UserManagement"}
-                >
-                  <MdManageAccounts />
-                  <span className="is-drawer-close:hidden">
-                    User Management
-                  </span>
-                </NavLink>
-              </li>
+                  {/* User Management */}
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="User Management"
+                      to={"/dasbord/UserManagement"}
+                    >
+                      <MdManageAccounts />
+                      <span className="is-drawer-close:hidden">
+                        User Management
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
               {/* setting */}
 
