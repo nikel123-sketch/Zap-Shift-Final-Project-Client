@@ -2,11 +2,15 @@ import React from "react";
 import img from '../../assets/banner/agent-pending.png'
 import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import useAxiosSecure from "../../Hooks/AxiosHooks/useAxiosSecure";
+import Swal from "sweetalert2";
 const BaRider = () => {
+  const axiosSecure=useAxiosSecure()
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -15,7 +19,7 @@ const BaRider = () => {
 
   // sender region --
   const riderRegion = watch("RiderRegion");
-  console.log(riderRegion);
+  // console.log(riderRegion);
 
   const regionDuplicate = allCuntry.map((cuntry) => cuntry.region);
 
@@ -32,6 +36,33 @@ const BaRider = () => {
   // form hendle--
   const formHendle = (data) => {
     console.log(data);
+
+    const riderinfo = {
+      name: data.name,
+      BikeModelAndYear: data.BikeModelAndYear,
+      BikeRegistrationNumber: data.BikeRegistrationNumber,
+      DrivingLicenseNumber: data.DrivingLicenseNumber,
+      RiderRegion: data.RiderRegion,
+      Riderdistrict: data.Riderdistrict,
+      email: data.email,
+      nidNumber: data.nidNumber,
+      phoneNumber: data.phoneNumber,
+      yourself: data.yourself,
+    };
+    // data sand the database---
+    axiosSecure.post('/riders',riderinfo)
+    .then(result=>{
+       if(result.data.insertedId){
+                  // reset()
+                  
+                 Swal.fire({
+                   position: "top-end",
+                   icon: "success",
+                   title: "your Aplication has been submited",
+                   showConfirmButton: false,
+                   timer: 2500,
+                 });
+    }})
   };
 
   return (

@@ -17,6 +17,7 @@ import Pay from "../../Pages/Dasbord/Pay/Pay";
 import PaySuccess from "../../Pages/Dasbord/Pay/PaySuccess";
 import PayCancel from "../../Pages/Dasbord/Pay/PayCancel";
 import PaymentHistory from "../../Pages/Dasbord/PaymentHistory/PaymentHistory";
+import AproveRiders from "../../Layout/DasbordLayout/AproveRiders";
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
       {
         path: "paymenthistory",
         Component: PaymentHistory,
+      },
+      {
+        path: "aproveRiders",
+        Component: AproveRiders,
       },
     ],
   },

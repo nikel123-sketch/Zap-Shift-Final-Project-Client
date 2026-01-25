@@ -1,5 +1,7 @@
+import { Motorbike } from "lucide-react";
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { FaMotorcycle } from "react-icons/fa";
 import { MdOutlinePayments } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 
@@ -98,6 +100,18 @@ const DasbordLayout = () => {
                 >
                   <MdOutlinePayments />
                   <span className="is-drawer-close:hidden">PaymentHistory</span>
+                </NavLink>
+              </li>
+              
+              {/* Aprove Riders */}
+              <li>
+                <NavLink
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Aprove Riders"
+                  to={"/dasbord/aproveRiders"}
+                >
+                  <FaMotorcycle />
+                  <span className="is-drawer-close:hidden">Aprove Riders</span>
                 </NavLink>
               </li>
 
