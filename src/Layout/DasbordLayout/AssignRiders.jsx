@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import useAxiosSecure from '../../Hooks/AxiosHooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
 const AssignRiders = () => {
+    const [selectedparcel,setselectedparcels]=useState()
     const modalref=useRef()
   const axiosSecure = useAxiosSecure();
   const { data: parcels = [] } = useQuery({
@@ -15,11 +16,26 @@ const AssignRiders = () => {
     },
   });
 
-  console.log(parcels);
+//   console.log(parcels);
+//   console.log(selectedparcel)
+
+  const { data: rider = [] } = useQuery({
+    queryKey: ["rider", selectedparcel?.Senderdistrict, "available"],
+    enabled: !!selectedparcel?.Senderdistrict,
+
+    queryFn: async () => {
+      const result = await axiosSecure.get(
+        `/riders?status=Approved&district=${selectedparcel.Senderdistrict}&workStatus=available`,
+      );
+      return result.data;
+    },
+  });
+  console.log(rider)
 
   // hendleassignrider--
-  const hendleassignrider=(rider)=>{
-    console.log(rider)
+  const hendleassignrider=(parcel)=>{
+    // console.log(rider)
+    setselectedparcels(parcel)
     modalref.current.showModal()
   }
   return (
@@ -95,7 +111,7 @@ const AssignRiders = () => {
       {/* modal */}
       <dialog ref={modalref} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg">riders{rider.length}!</h3>
           <p className="py-4">
             Press ESC key or click the button below to close
           </p>
