@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../Hooks/AxiosHooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FiShieldOff } from 'react-icons/fi';
@@ -6,15 +6,16 @@ import { FaUserShield } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const UserManagement = () => {
+  const [searchtext,setsearhtext]=useState('')
   const axiosSecure = useAxiosSecure();
   const {
     data: users = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchtext],
     queryFn: async () => {
-      const result = await axiosSecure.get("/users");
+      const result = await axiosSecure.get(`/users?searchtext=${searchtext}`);
       return result.data;
     },
   });
@@ -97,6 +98,7 @@ const UserManagement = () => {
     axiosSecure
       .patch(`/users/${user._id}/role`, roleInfo)
       .then((result) => {
+        console.log(result.data)
         if (result.data.modifiedCount) {
           Swal.fire({
             position: "top-end",
@@ -146,7 +148,7 @@ const UserManagement = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Failed to update user role!",
+          text: "Failed to admin remove!",
         });
       });
   };
@@ -156,6 +158,34 @@ const UserManagement = () => {
       <h1 className="font-bold text-3xl text-center">
         Totall User Management : {users.length}
       </h1>
+
+
+        {/* search */}
+      <label className="input input-bordered flex items-center gap-2 w-full max-w-md mx-auto my-4 shadow-md rounded-xl focus-within:ring-2 focus-within:ring-blue-400 transition-all">
+        <svg
+          className="h-[1em] opacity-50"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <g
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </g>
+        </svg>
+
+        <input
+          onChange={(e) => setsearhtext(e.target.value)}
+          type="search"
+          className="grow bg-transparent outline-none placeholder:text-gray-400"
+          placeholder="Search"
+        />
+      </label>
 
       <div className="overflow-x-auto">
         {/* table head */}
