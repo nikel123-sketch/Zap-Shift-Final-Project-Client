@@ -20,6 +20,7 @@ import PaymentHistory from "../../Pages/Dasbord/PaymentHistory/PaymentHistory";
 import AproveRiders from "../../Layout/DasbordLayout/AproveRiders";
 import UserManagement from "../../Layout/DasbordLayout/UserManagement";
 import AdminRout from "../AdminRout/AdminRout";
+import AssignRiders from "../../Layout/DasbordLayout/AssignRiders";
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,10 @@ export const router = createBrowserRouter([
           </AdminRout>
         ),
       },
+      {
+        path:'assignriders',
+        element:<AdminRout><AssignRiders></AssignRiders></AdminRout>
+      }
     ],
   },
 ]);

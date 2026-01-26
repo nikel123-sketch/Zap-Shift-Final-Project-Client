@@ -41,9 +41,9 @@ const PaymentHistory = () => {
             <th className="px-6 py-4">Amount</th>
             <th className="px-6 py-4">Currency</th>
             <th className="px-6 py-4">Status</th>
+            
             <th className="px-6 py-4">Transaction ID</th>
             <th className="px-6 py-4">Paid At</th>
-           
           </tr>
         </thead>
 
@@ -67,11 +67,11 @@ const PaymentHistory = () => {
                   {pay.paymentStatus}
                 </span>
               </td>
+             
               <td className="px-6 py-4 text-xs text-gray-500 break-all">
                 {pay.transactionId}
               </td>
               <td className="px-6 py-4 text-gray-600">{pay.paidAt}</td>
-              
             </tr>
           ))}
         </tbody>

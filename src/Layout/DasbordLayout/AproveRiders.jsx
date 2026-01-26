@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import useAxiosSecure from "../../Hooks/AxiosHooks/useAxiosSecure";
 import {  useQuery,  } from "@tanstack/react-query";
 import { FaUserCheck } from "react-icons/fa";
@@ -13,6 +13,7 @@ import { MdOutlinePreview } from "react-icons/md";
 
 
 const AproveRiders = () => {
+  
   const axiosSecure = useAxiosSecure();
 
   // fetch riders
@@ -116,7 +117,12 @@ const AproveRiders = () => {
               <th className="border border-gray-300 px-2 py-1">Email</th>
               <th className="border border-gray-300 px-2 py-1">NID</th>
               <th className="border border-gray-300 px-2 py-1">Phone</th>
+              <th className="border border-gray-300 px-2 py-1">
+                {" "}
+                Works-Status
+              </th>
               <th className="border border-gray-300 px-2 py-1">Status</th>
+
               <th className="border border-gray-300 px-2 py-1">Acction</th>
             </tr>
           </thead>
@@ -156,6 +162,9 @@ const AproveRiders = () => {
                 <td className="border border-gray-300 px-2 py-1">
                   {rider.phoneNumber}
                 </td>
+                <td className="border border-gray-300 px-2 py-1">
+                  {rider.workStatus}
+                </td>
 
                 {/* _____approved and rejected pending_________ */}
                 <td className="border border-gray-300 px-2 py-1 text-center">
@@ -177,7 +186,6 @@ const AproveRiders = () => {
                 <td className="flex gap-2 px-2 py-1 justify-center">
                   {/* Rider view*/}
                   <button
-                    
                     className="flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full shadow hover:bg-green-200 hover:scale-105 transition-all duration-200"
                     title="Rider View"
                   >
@@ -216,6 +224,9 @@ const AproveRiders = () => {
           </tbody>
         </table>
       </div>
+
+      
+     
     </div>
   );
 };

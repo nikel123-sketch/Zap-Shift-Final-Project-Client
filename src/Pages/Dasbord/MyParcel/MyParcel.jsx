@@ -86,7 +86,7 @@ const MyParcel = () => {
                text-transparent bg-clip-text 
                bg-gradient-to-r from-indigo-500 to-purple-600 mb-6"
       >
-        My Totall Parcels {parcels.length}
+        My  Parcels {parcels.length}
       </h1>
 
       <div className="overflow-x-auto rounded-2xl shadow-xl bg-base-100">
@@ -99,6 +99,7 @@ const MyParcel = () => {
               <th>Parcel Type</th>
               <th>Cost</th>
               <th>Created At</th>
+              <th> Delevary Status</th>
               <th>Payment</th>
               <th>Action</th>
             </tr>
@@ -122,6 +123,7 @@ const MyParcel = () => {
                 </td>
 
                 <td className="text-sm text-gray-500">{parcel.createdAt}</td>
+                <td className="text-sm text-gray-500">{parcel.delevaryStatus}</td>
 
                 {/* paid and pay btn */}
                 <td>
