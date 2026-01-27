@@ -1,7 +1,7 @@
 import { Motorbike } from "lucide-react";
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaMotorcycle, FaTruckPickup } from "react-icons/fa";
+import { FaMotorcycle, FaTasks, FaTruckPickup } from "react-icons/fa";
 import { MdManageAccounts, MdOutlinePayments } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../../Hooks/Role/useRole";
@@ -54,6 +54,7 @@ const DasbordLayout = () => {
             <ul className="menu w-full grow">
               {/* List item */}
 
+              {/* user looks links */}
               {/* home */}
               <li>
                 <Link
@@ -105,6 +106,26 @@ const DasbordLayout = () => {
                 </NavLink>
               </li>
 
+              {/* rider looks links */}
+              {(role === "rider" || role === "admin") && (
+                <>
+                  {/* assigndeliveries */}
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Assign-Deliveries"
+                      to={"/dasbord/assigndeliveries"}
+                    >
+                      <FaTasks></FaTasks>
+                      <span className="is-drawer-close:hidden">
+                        Assign Deliveries
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {/* admin looks links */}
               {role === "admin" && (
                 <>
                   {/* Aprove Riders */}

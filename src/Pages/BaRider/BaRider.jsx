@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import useAxiosSecure from "../../Hooks/AxiosHooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 const BaRider = () => {
+  const {user}=useAuth()
   const axiosSecure=useAxiosSecure()
   const {
     register,
@@ -88,6 +90,7 @@ const BaRider = () => {
           <label className="block">Your Name</label>
           <input
             type="text"
+            
             placeholder="Your Name"
             className="input input-bordered w-full"
             {...register("name", { required: true })}
@@ -115,6 +118,8 @@ const BaRider = () => {
           {/* _________email_________________________ */}
           <label className="block">Your Email</label>
           <input
+            defaultValue={user.email}
+            readOnly
             type="email"
             placeholder="Your Email"
             className="input input-bordered w-full"

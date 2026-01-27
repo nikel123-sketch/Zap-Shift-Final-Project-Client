@@ -21,6 +21,8 @@ import AproveRiders from "../../Layout/DasbordLayout/AproveRiders";
 import UserManagement from "../../Layout/DasbordLayout/UserManagement";
 import AdminRout from "../AdminRout/AdminRout";
 import AssignRiders from "../../Layout/DasbordLayout/AssignRiders";
+import AssignDeliveries from "../../Layout/DasbordLayout/AssignDeliveries";
+import RiderRouts from "../RiderRouts/RiderRouts";
 
 export const router = createBrowserRouter([
   {
@@ -110,6 +112,8 @@ export const router = createBrowserRouter([
         path: "paymenthistory",
         Component: PaymentHistory,
       },
+
+      // admin only routs
       {
         path: "aproveRiders",
         element: (
@@ -120,7 +124,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "UserManagement",
-        // Component:UserManagement
+        
         element: (
           <AdminRout>
             <UserManagement></UserManagement>
@@ -128,9 +132,20 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:'assignriders',
-        element:<AdminRout><AssignRiders></AssignRiders></AdminRout>
-      }
+        path: "assignriders",
+        element: (
+          <AdminRout>
+            <AssignRiders></AssignRiders>
+          </AdminRout>
+        ),
+      },
+
+      // rider only routs
+      {
+        path: "assigndeliveries",
+        // Component:AssignDeliveries
+        element:<RiderRouts><AssignDeliveries></AssignDeliveries></RiderRouts>
+      },
     ],
   },
 ]);
