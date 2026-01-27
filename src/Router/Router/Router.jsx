@@ -23,6 +23,7 @@ import AdminRout from "../AdminRout/AdminRout";
 import AssignRiders from "../../Layout/DasbordLayout/AssignRiders";
 import AssignDeliveries from "../../Layout/DasbordLayout/AssignDeliveries";
 import RiderRouts from "../RiderRouts/RiderRouts";
+import CompletDeleveries from "../../Layout/DasbordLayout/CompletDeleveries";
 
 export const router = createBrowserRouter([
   {
@@ -124,7 +125,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "UserManagement",
-        
+
         element: (
           <AdminRout>
             <UserManagement></UserManagement>
@@ -144,7 +145,19 @@ export const router = createBrowserRouter([
       {
         path: "assigndeliveries",
         // Component:AssignDeliveries
-        element:<RiderRouts><AssignDeliveries></AssignDeliveries></RiderRouts>
+        element: (
+          <RiderRouts>
+            <AssignDeliveries></AssignDeliveries>
+          </RiderRouts>
+        ),
+      },
+      {
+        path: "conpletdeliveries",
+        element: (
+          <RiderRouts>
+            <CompletDeleveries></CompletDeleveries>
+          </RiderRouts>
+        ),
       },
     ],
   },

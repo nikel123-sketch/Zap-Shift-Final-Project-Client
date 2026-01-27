@@ -2,7 +2,7 @@ import { Motorbike } from "lucide-react";
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FaMotorcycle, FaTasks, FaTruckPickup } from "react-icons/fa";
-import { MdManageAccounts, MdOutlinePayments } from "react-icons/md";
+import { MdManageAccounts, MdOutlinePayments, MdTask } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../../Hooks/Role/useRole";
 
@@ -119,6 +119,20 @@ const DasbordLayout = () => {
                       <FaTasks></FaTasks>
                       <span className="is-drawer-close:hidden">
                         Assign Deliveries
+                      </span>
+                    </NavLink>
+                  </li>
+
+                  {/* complet delevary */}
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="complet-Deliveries"
+                      to={"/dasbord/conpletdeliveries"}
+                    >
+                      <MdTask />
+                      <span className="is-drawer-close:hidden">
+                        Complet Deliveries
                       </span>
                     </NavLink>
                   </li>

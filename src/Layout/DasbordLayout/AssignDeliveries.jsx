@@ -24,15 +24,16 @@ const AssignDeliveries = () => {
   }
 
   // hendleAcceptbtn---
-  const hendleAcceptbtn=(parcel)=>{
+  const hendleDelevaryStatusUpdate=(parcel,status)=>{
     console.log(parcel)
-    const parceldelevaryStatus = { delevaryStatus :'ridergoing'};
+    let message=`parcel status is ${status}`
+    const parceldelevaryStatus = { delevaryStatus :status};
     axiosSecure.patch(`/parcels/${parcel._id}/status`,parceldelevaryStatus)
     .then(res=>{
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               icon: "success",
-              title: "thank you for Accepting",
+              title: message,
               timer: 1500,
               showConfirmButton: false,
             });
@@ -79,7 +80,9 @@ const hendleRiderReject = (parcel) => {
 
   return (
     <div>
-      <h1>Parcel Pending Pickup :{parcels.length}</h1>
+      <h1 className="font-bold text-3xl text-center">
+        Parcel Pending Pickup :{parcels.length}
+      </h1>
 
       <div className="overflow-x-auto">
         <table className="table">
@@ -92,6 +95,7 @@ const hendleRiderReject = (parcel) => {
               <th>ReceiverEmail</th>
               <th>Senderdistrict</th>
               <th>Receiverdistrict</th>
+              <th>Confrom</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -106,19 +110,22 @@ const hendleRiderReject = (parcel) => {
                 <td>{parcel.Senderdistrict}</td>
                 <td>{parcel.Receiverdistrict}</td>
 
-                
                 <td className="flex items-center gap-2">
                   {parcel.delevaryStatus === "RiderAssign" ? (
                     <>
                       <button
-                        onClick={() => hendleAcceptbtn(parcel)}
+                        onClick={() =>
+                          hendleDelevaryStatusUpdate(parcel, "ridergoing")
+                        }
                         className="px-4 py-1.5 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold transition-all duration-200 shadow"
                       >
                         Accept
                       </button>
 
                       <button
-                        onClick={() => hendleRiderReject(parcel)}
+                        onClick={() =>
+                          hendleRiderReject(parcel, "parcelRejected")
+                        }
                         className="px-4 py-1.5 rounded-md bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-all duration-200 shadow"
                       >
                         Reject
@@ -129,6 +136,36 @@ const hendleRiderReject = (parcel) => {
                       Accepted
                     </span>
                   )}
+                </td>
+
+                <td>
+                  {parcel.delevaryStatus !== "parcel_picked_up" ? (
+                    <>
+                      <button
+                        onClick={() =>
+                          hendleDelevaryStatusUpdate(parcel, "parcel_picked_up")
+                        }
+                        className="btn btn-sm btn-secondary mr-4"
+                      >
+                        Mark As Pickup
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                        Mark As Pickup
+                      </span>
+                    </>
+                  )}
+
+                  <button
+                    onClick={() =>
+                      hendleDelevaryStatusUpdate(parcel, "parcel_Delevared")
+                    }
+                    className="btn btn-sm btn-primary"
+                  >
+                    Mark As Delevared
+                  </button>
                 </td>
               </tr>
             ))}

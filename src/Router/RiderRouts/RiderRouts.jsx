@@ -7,6 +7,8 @@ import Forbidden from '../../Component/Forbiden/Forbiden';
 const RiderRouts = ({ children }) => {
   const { user, loading } = useAuth();
   const { role, isLoading } = useRole();
+  
+  console.log(user)
 
   if (loading || isLoading) {
     return <Loading></Loading>;
@@ -15,7 +17,8 @@ const RiderRouts = ({ children }) => {
   if (role !== "rider") {
     return <Forbidden></Forbidden>;
   }
-
+  
+ 
   return children;
 };
 
