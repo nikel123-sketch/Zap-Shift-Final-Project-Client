@@ -3,11 +3,12 @@ import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/AxiosHooks/useAxiosSecure';
 import Loading from '../../Component/Loading/Loading';
+import Swal from 'sweetalert2';
 
 const AssignDeliveries = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const { data: parcels = [], isLoading } = useQuery({
+  const { data: parcels = [], isLoading,refetch } = useQuery({
     queryKey: ["parcels", user?.email, "RiderAssign"],
     queryFn: async () => {
       const result = await axiosSecure.get(
@@ -28,15 +29,57 @@ const AssignDeliveries = () => {
     const parceldelevaryStatus = { delevaryStatus :'ridergoing'};
     axiosSecure.patch(`/parcels/${parcel._id}/status`,parceldelevaryStatus)
     .then(res=>{
-        console.log(res.data)
-    })
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              icon: "success",
+              title: "thank you for Accepting",
+              timer: 1500,
+              showConfirmButton: false,
+            });
 
-
-    
+            refetch(); // reload rider list
+          }
+    })    
   }
+
+//   hendleRiderReject---
+const hendleRiderReject = (parcel) => {
+  Swal.fire({
+    title: "Reject this parcel?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Reject",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axiosSecure
+        .patch(`/parcels/${parcel._id}/status`, {
+          delevaryStatus: "RiderAssign",
+        })
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              icon: "success",
+              title: "Parcel Returned",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+
+            refetch(); // reload rider list
+          }
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: "error",
+            title: "Failed to reject parcel",
+          });
+        });
+    }
+  });
+};
+
   return (
     <div>
-      <h1>Tatall Assaing Rider :{parcels.length}</h1>
+      <h1>Parcel Pending Pickup :{parcels.length}</h1>
 
       <div className="overflow-x-auto">
         <table className="table">
@@ -62,16 +105,30 @@ const AssignDeliveries = () => {
 
                 <td>{parcel.Senderdistrict}</td>
                 <td>{parcel.Receiverdistrict}</td>
-                <td>
-                  <button
-                    onClick={() => hendleAcceptbtn(parcel)}
-                    className="btn btn-sm font-bold btn-primary mr-3"
-                  >
-                    Accept
-                  </button>
-                  <button className="btn btn-sm font-bold btn-warning">
-                    Reject
-                  </button>
+
+                
+                <td className="flex items-center gap-2">
+                  {parcel.delevaryStatus === "RiderAssign" ? (
+                    <>
+                      <button
+                        onClick={() => hendleAcceptbtn(parcel)}
+                        className="px-4 py-1.5 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold transition-all duration-200 shadow"
+                      >
+                        Accept
+                      </button>
+
+                      <button
+                        onClick={() => hendleRiderReject(parcel)}
+                        className="px-4 py-1.5 rounded-md bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-all duration-200 shadow"
+                      >
+                        Reject
+                      </button>
+                    </>
+                  ) : (
+                    <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                      Accepted
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
