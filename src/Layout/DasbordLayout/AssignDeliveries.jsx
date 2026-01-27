@@ -27,7 +27,7 @@ const AssignDeliveries = () => {
   const hendleDelevaryStatusUpdate=(parcel,status)=>{
     console.log(parcel)
     let message=`parcel status is ${status}`
-    const parceldelevaryStatus = { delevaryStatus :status};
+    const parceldelevaryStatus = { delevaryStatus :status,riderId:parcel.riderId};
     axiosSecure.patch(`/parcels/${parcel._id}/status`,parceldelevaryStatus)
     .then(res=>{
           if (res.data.modifiedCount > 0) {
