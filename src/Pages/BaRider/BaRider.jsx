@@ -1,11 +1,12 @@
 import React from "react";
 import img from '../../assets/banner/agent-pending.png'
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { Navigate, useLoaderData } from "react-router";
 import useAxiosSecure from "../../Hooks/AxiosHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 const BaRider = () => {
+  const navigate=Navigate()
   const {user}=useAuth()
   const axiosSecure=useAxiosSecure()
   const {
@@ -37,6 +38,7 @@ const BaRider = () => {
 
   // form hendle--
   const formHendle = (data) => {
+
     console.log(data);
 
     const riderinfo = {
@@ -55,8 +57,8 @@ const BaRider = () => {
     axiosSecure.post('/riders',riderinfo)
     .then(result=>{
        if(result.data.insertedId){
-                  // reset()
-                  
+                  reset()
+                  navigate('/')
                  Swal.fire({
                    position: "top-end",
                    icon: "success",
@@ -64,6 +66,7 @@ const BaRider = () => {
                    showConfirmButton: false,
                    timer: 2500,
                  });
+
     }})
   };
 
