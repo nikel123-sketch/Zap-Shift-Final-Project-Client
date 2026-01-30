@@ -2,7 +2,7 @@ import { Motorbike } from "lucide-react";
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FaMotorcycle, FaTasks, FaTruckPickup } from "react-icons/fa";
-import { MdManageAccounts, MdOutlinePayments, MdTask } from "react-icons/md";
+import { MdDashboard, MdManageAccounts, MdOutlinePayments, MdTask } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../../Hooks/Role/useRole";
 
@@ -77,6 +77,20 @@ const DasbordLayout = () => {
                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   </svg>
                   <span className="is-drawer-close:hidden">Homepage</span>
+                </Link>
+              </li>
+
+              {/* Dashbord */}
+
+              <li>
+                <Link
+                  to={"/dasbord"}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Dashbord"
+                >
+                  {/* Home icon */}
+                  <MdDashboard />
+                  <span className="is-drawer-close:hidden">Dashbord</span>
                 </Link>
               </li>
 

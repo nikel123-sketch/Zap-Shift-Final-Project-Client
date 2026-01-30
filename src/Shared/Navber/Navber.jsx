@@ -23,6 +23,8 @@ const Navber = () => {
       <li>
         <Link to={"/aboutus"}>About Us</Link>
       </li>
+
+      {user &&<>
       <li>
         <Link to={'/pricing'}>Pricing</Link>
       </li>
@@ -30,8 +32,10 @@ const Navber = () => {
         <Link to={'/sandparcel'}>SandParcel</Link>
       </li>
       <li>
-        <Link to={'dasbord/myparcel'}>MyParcel</Link>
+        <Link to={'/dasbord'}>Dashbord</Link>
       </li>
+      </>}
+      
       
     </>
   );
@@ -95,6 +99,7 @@ const Navber = () => {
                 Logout
               </button>
             </Link>
+            
           ) : (
             <Link to={"auth/login"} className="btn btn-primary">
               Login
