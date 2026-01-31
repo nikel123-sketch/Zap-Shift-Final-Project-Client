@@ -54,10 +54,14 @@ const Navber = () => {
 
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-100 shadow-md border-b sticky top-0 z-50 px-4 backdrop-blur">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden hover:bg-base-200 transition"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -65,48 +69,57 @@ const Navber = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                />
               </svg>
             </div>
+
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-50 mt-3 w-56 p-3 shadow-lg gap-2"
             >
               {links}
             </ul>
           </div>
 
-          <Logo></Logo>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <div className="ml-2">
+            <Logo />
+          </div>
         </div>
 
-        {/* btn */}
-        {/* <div className="navbar-end">
-          {user? }
-        </div> */}
-        <div className="navbar-end">
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 gap-4 font-medium">
+            {links}
+          </ul>
+        </div>
+
+        <div className="navbar-end gap-3">
           {user ? (
-            <Link to={'/auth/login'}>
-              <button onClick={logoutbtnhendle} className="btn btn-error">
+            <Link to={"/auth/login"}>
+              <button
+                onClick={logoutbtnhendle}
+                className="btn btn-error rounded-full px-6 hover:-translate-y-1 transition-all duration-200"
+              >
                 Logout
               </button>
             </Link>
-            
           ) : (
-            <Link to={"auth/login"} className="btn btn-primary">
+            <Link
+              to={"auth/login"}
+              className="btn btn-primary rounded-full px-6 hover:-translate-y-1 transition-all duration-200"
+            >
               Login
             </Link>
           )}
 
-          <Link to={"/barider"} className="btn btn-accent ml-4">
+          <Link
+            to={"/barider"}
+            className="btn btn-accent rounded-full px-6 hover:-translate-y-1 transition-all duration-200"
+          >
             BaRider
           </Link>
         </div>
