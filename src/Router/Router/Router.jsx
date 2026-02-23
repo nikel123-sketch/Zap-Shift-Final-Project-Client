@@ -25,6 +25,7 @@ import AssignDeliveries from "../../Layout/DasbordLayout/AssignDeliveries";
 import RiderRouts from "../RiderRouts/RiderRouts";
 import CompletDeleveries from "../../Layout/DasbordLayout/CompletDeleveries";
 import DashbordHome from "../../Pages/Dasbord/DasbordHome/DashbordHome";
+import OurService from "../../Pages/Home/OurService/OurService";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "aboutus",
         Component: AboutUs,
+      },
+      {
+        path: "services",
+        Component: OurService,
       },
       {
         path: "pricing",
@@ -95,8 +100,8 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        index:true,
-        Component:DashbordHome
+        index: true,
+        Component: DashbordHome,
       },
       {
         path: "myparcel",
